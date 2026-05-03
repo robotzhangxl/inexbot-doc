@@ -1,0 +1,43 @@
+{
+  "name": "inexbot-doc",
+  "version": "1.0.0",
+  "description": "纳博特(Nabor)机器人控制系统技术顾问 - 产品选型、配置调试、二次开发、工艺应用。130篇文档索引。",
+  "category": "robotics",
+  "tags": ["nabor", "inexbot", "robot", "scara", "6-axis", "motion-control", "tcp-calibration"],
+  "author": "Hermes Agent",
+  "license": "MIT",
+  "source": "https://doc.inexbot.com",
+  "documents": {
+    "controllers": ["C1102", "C1200", "C1201", "C2200"],
+    "teach_pendants": ["T30", "T31", "NWH01"],
+    "integration_cabinets": ["X01", "X01-D02", "X02"],
+    "calibration": ["NexAutoCali自动标定系统"]
+  },
+  "index": {
+    "calibration": {
+      "tcp": "操作手册_24.03版本_工具手标定手册.md",
+      "user_coords": "操作手册_24.03版本_用户坐标标定手册.md",
+      "auto_cali": "产品资料_精度标定_自动标定系统nexautocali.md",
+      "dh_params": "操作手册_24.03版本_机器人dh参数说明.md",
+      "backlash": "操作手册_24.03版本_反向间隙.md"
+    },
+    "troubleshooting": {
+      "servo_errors": "技术资料_常见问题与解决方案_伺服报错代码.md",
+      "io_errors": "操作手册_24.03版本_io报警信息.md",
+      "debug": "操作手册_24.03版本_调试手册.md"
+    },
+    "development": {
+      "tcp_protocol": "操作手册_24.03版本_tcp通讯功能手册.md",
+      "port_7000": "操作手册_24.03版本_7000端口.md",
+      "sdk_tutorial": "操作手册_24.03版本_dev多语言功能使用教程.md",
+      "lua_tutorial": "操作手册_24.03版本_lua教程.md",
+      "modbus": "操作手册_24.03版本_modbus功能使用手册.md"
+    }
+  },
+  "quick_qa": {
+    "tcp_calibration": "示教器 → 标定 → 工具手标定（4点法/6点法）",
+    "servo_e001": "查看伺服报错代码文档",
+    "python_connect": "使用TCP通讯协议，参考7000端口说明或多语言SDK教程"
+  },
+  "doc_url_format": "https://doc.inexbot.com/{document_name}"
+}
