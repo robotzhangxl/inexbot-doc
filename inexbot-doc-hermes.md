@@ -2,6 +2,13 @@
 name: inexbot-doc
 category: motion-control
 description: 纳博特(Nabor)机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（130篇文档）。
+updated: 2026-05-03 12:03
+---
+
+---
+name: inexbot-doc
+category: motion-control
+description: 纳博特(Nabor)机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（130篇文档）。
 ---
 
 # 纳博特(Nabor)机器人控制系统 — 技术顾问
@@ -320,3 +327,4 @@ A: 使用 TCP 通讯协议，参考 7000 端口说明或多语言 SDK 教程。
 **Q: 伺服报 E001 是什么错误？**
 A: 查伺服报错代码文档。
 → `技术资料_常见问题与解决方案_伺服报错代码.md`
+
