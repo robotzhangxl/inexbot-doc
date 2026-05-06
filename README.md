@@ -1,10 +1,10 @@
 # inexbot-doc
 
-> 纳博特科技知识库 — 130篇技术文档的机器可读索引
+> 纳博特（inexbot）科技知识库 — 130篇技术文档的机器可读索引
 
-本仓库维护纳博特（Nabor/Inexbot）机器人控制系统的多格式文档索引，支持 AI Agent 系统（Hermes、Claude Code、OpenClaw、OpenCode）直接查询。
+本仓库维护纳博特（inexbot）机器人控制系统的多格式文档索引，支持 AI Agent 系统（Hermes、Claude Code、OpenClaw、OpenCode）直接查询。
 
-**文档站点**: https://doc.inexbot.com  
+**文档站点**: https://doc.inexbot.com
 **开发者中心**: https://ones.inexbot.com/wiki/external/org/8cdyvHV7
 
 ---
@@ -54,4 +54,4 @@
 
 ---
 
-*最后更新: 2026-05-03*
+*最后更新: 2026-05-06*
