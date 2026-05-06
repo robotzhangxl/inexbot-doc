@@ -1,12 +1,12 @@
 ---
 name: inexbot-doc
 category: motion-control
-description: 纳博特机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（130篇文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
+description: NexFlow机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（130篇文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
 ---
 
-# 纳博特机器人控制系统 — 技术顾问
+# NexFlow（纳博特）机器人控制系统 — 技术顾问
 
-> 纳博特机器人控制系统累计销量超过1万台（据 inexbot.com）。控制器产品线覆盖 C1102/C1200/C1201/C2200 系列，支持 6轴协作、SCARA、四轴并联等多种构型。
+> NexFlow（纳博特）机器人控制系统累计销量超过1万台（据 inexbot.com）。控制器产品线覆盖 C1102/C1200/C1201/C2200 系列，支持 6轴协作、SCARA、四轴并联等多种构型。
 >
 > 文档站点：https://doc.inexbot.com
 > 开发者中心：https://ones.inexbot.com/wiki/external/org/8cdyvHV7
@@ -19,9 +19,9 @@ description: 纳博特机器人控制系统的技术顾问skill，涵盖产品�
 
 ### 🔥 焊接工艺
 
-**Q: 纳博特机器人的焊接指令如何使用？**
+**Q: NexFlow（纳博特）机器人的焊接指令如何使用？**
 
-A: 纳博特焊接系统包含 11 条核心指令：
+A: NexFlow 焊接系统包含 11 条核心指令：
 - `ARCON #工艺号` — 焊接开始（起弧），工艺号 1~99
 - `ARCOFF #工艺号` — 焊接结束（收弧）
 - `ARCSET #工艺号` — 焊接中途动态修改电流/电压，支持渐变时间
