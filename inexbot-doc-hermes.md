@@ -552,6 +552,34 @@ import os
 os.remove('/tmp/gh_token.txt')
 ```
 
+### ⚡ VitePress 重建陷阱
+
+VitePress 站点每次 rebuild 都会重新生成**所有文档的 content hash**，即使内容完全未变。这意味着：
+- 如果所有 130+ 个旧文档的 hash 都变了，加上少量新增文档 → 很可能是站点 rebuild，不是真内容变化
+- 如果只有 `+N` 个新文档出现，旧文档 hash 也全变 → 新类目（如 FAQ）上线
+- **判断逻辑**：当 `len(changed) > max(len(new_docs), len(removed)) * 5` 时 → 视为 rebuild，对照新增/移除的文档来判定是否有实质更新
+
+```python
+# 区分 rebuild 和真实内容变化
+all_old_changed = len(changed) == len(common) and len(common) > 0
+has_new_or_removed = len(new_docs) > 0 or len(removed) > 0
+
+if all_old_changed and has_new_or_removed:
+    # 站点 rebuild + 新文档上架 — 更新索引、重新同步
+    print(f"⚠️ 站点 Rebuild + 新文档: +{len(new_docs)} / -{len(removed)}")
+elif all_old_changed and not has_new_or_removed:
+    # 纯重建，无实质内容变化 — 跳过同步，只更新 hash map
+    print("ℹ️ 纯重建，无文档变化 — 跳过同步")
+elif not all_old_changed and len(changed) > 0:
+    # 少量旧文档变化 + 可能的新文档 — 真实更新
+    print(f"📝 部分文档更新: changed={len(changed)} new={len(new_docs)}")
+```
+
+每一轮 cron 仍需对比完整哈希列表，因为：
+- 即使仅拆包/主题升级也会触发全量 hash 变化
+- 只有通过 `new_docs` / `removed` 可以判定站点是否上架了新内容
+- 上一次检测到的 `all_old_changed` 场景是 2026-05-16（FAQ 23篇 + 1篇文档上架）
+
 ### 更新检测方法
 
 **推荐方法**（最简单可靠）：直接请求 VitePress 内置的 `/hashmap.json` 端点。
