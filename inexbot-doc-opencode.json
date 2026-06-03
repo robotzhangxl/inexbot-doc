@@ -1,36 +1,42 @@
 {
   "name": "inexbot-doc",
-  "description": "Inexbot Robot Control System Knowledge Base — 154 docs from doc.inexbot.com",
-  "version": "1.0.0",
-  "last_synced": "daily",
-  "documents": {
-    "product_info": {
+  "version": "2026-06-03",
+  "description": "纳博特科技知识库 — 多轴运动控制、机器人算法及行业解决方案",
+  "source": "https://doc.inexbot.com",
+  "developer_center": "https://ones.inexbot.com/wiki/external/org/8cdyvHV7",
+  "total_documents": 502,
+  "categories": {
+    "产品资料": {
       "count": 18,
-      "description": "产品资料"
+      "subcategories": [
+        "控制系统 (7篇): T30/T31示教器, C1102/C1200/C1201/C2200控制器, NWH01无线手持盒",
+        "显控一体机 (1篇): XPC-150-C1100",
+        "现场总线IO (4篇): R2C/R4C/R4D/R5B EtherCAT IO",
+        "精度标定 (1篇): NexAutoCali",
+        "驱控一体柜 (3篇): X01/X01-D02/X02"
+      ]
     },
-    "faq": {
-      "count": 23,
-      "description": "常见问题"
-    },
-    "tech_info": {
+    "技术资料": {
       "count": 5,
-      "description": "技术资料"
+      "items": ["伺服报错代码", "支持的伺服型号", "支持的外部轴类型", "支持的机器人类型", "通讯协议地址码"]
     },
-    "manuals_v2207": {
+    "操作手册_22.07": {
       "count": 25,
-      "description": "操作手册 22.07"
+      "description": "含系统操作、调试、指令集、焊接/打磨/喷涂/冲压/激光切割/视觉等工艺手册"
     },
-    "manuals_v2403": {
+    "操作手册_24.03": {
       "count": 78,
-      "description": "操作手册 24.03"
+      "description": "最新版手册，运动控制类/程序控制类指令、Lua教程、机器人定制适配、7000端口协议"
     },
-    "manuals_other": {
-      "count": 1,
-      "description": "T31 welding teach pendant"
+    "常见问题": {
+      "count": 372,
+      "items": "23篇分类FAQ + 349篇独立伺服报错页面"
     },
-    "industry_solutions": {
+    "行业方案": {
       "count": 2,
-      "description": "行业方案"
+      "items": ["协作码垛", "激光切割"]
     }
-  }
+  },
+  "last_sync": "2026-06-03T12:00:00Z",
+  "hashmap_url": "https://doc.inexbot.com/hashmap.json"
 }
