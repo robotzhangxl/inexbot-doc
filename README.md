@@ -1,34 +1,36 @@
-# Inexbot Doc — 纳博特科技知识库同步仓库
+# inexbot-doc
 
-> 自动同步自 [doc.inexbot.com](https://doc.inexbot.com)
->
-> 每日 Cron 自动更新
+纳博特科技知识库 — 多轴运动控制系统技术文档自动同步。
 
-## 文件清单
+> **来源**: https://doc.inexbot.com  
+> **最后同步**: 2026-06-03 12:00 UTC  
+> **总文档数**: 502篇
+
+## 文件说明
 
 | 文件 | 格式 | 用途 |
 |------|------|------|
-| `README.md` | Markdown | 本文件 |
-| `inexbot-doc-hermes.md` | SKILL (YAML frontmatter) | Hermes Agent 技能使用 |
-| `inexbot-doc-claude-code.md` | Markdown | Claude Code 系统引用 |
-| `inexbot-doc-openclaw.md` | Markdown | OpenClaw 引用 |
-| `inexbot-doc-opencode.json` | JSON | OpenCode 知识库 |
+| `inexbot-doc-hermes.md` | YAML frontmatter + Markdown | Hermes AI Agent SKILL 格式 |
+| `inexbot-doc-claude-code.md` | Markdown | Claude Code 知识库格式 |
+| `inexbot-doc-openclaw.md` | Markdown | OpenClaw 格式 |
+| `inexbot-doc-opencode.json` | JSON | OpenCode 知识库格式 |
 | `inexbot-doc-raw.md` | Markdown | 纯文本通用格式 |
-| `hash-map-snapshot.json` | JSON | VitePress 内容哈希快照（变更检测用） |
+| `hash-map-snapshot.json` | JSON | VitePress hashmap 快照 |
 
-## 文档统计
+## 同步机制
 
-| 类别 | 数量 |
-|------|:----:|
-| 产品资料 | 18 |
-| 常见问题 FAQ | 23 |
-| 技术资料 | 5 |
-| 操作手册 22.07 | 25 |
-| 操作手册 24.03 | 78 |
-| T31焊接示教器手册 | 1 |
-| 行业方案 | 2 |
-| **总计** | **154** |
+每日自动运行 cron 任务：
+1. 抓取 doc.inexbot.com/hashmap.json
+2. 对比本地哈希基线检测变化
+3. 更新 SKILL.md 和参考文件
+4. 生成 5 种格式的文档文件
+5. 通过 GitHub API 上传
 
-## 更新日志
+## 文档分类
 
-- 2026-05-17: 初始同步 — 154 篇文档
+- 产品资料: 18篇
+- 技术资料: 5篇
+- 操作手册 22.07: 25篇
+- 操作手册 24.03: 78篇
+- 常见问题 FAQ: 372篇（含349篇独立伺服报错页面）
+- 行业方案: 2篇
