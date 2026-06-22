@@ -1,42 +1,70 @@
 {
   "name": "inexbot-doc",
-  "version": "2026-06-03",
-  "description": "纳博特科技知识库 — 多轴运动控制、机器人算法及行业解决方案",
-  "source": "https://doc.inexbot.com",
-  "developer_center": "https://ones.inexbot.com/wiki/external/org/8cdyvHV7",
-  "total_documents": 502,
+  "version": "2026-06-22",
+  "description": "纳博特(inexbot)机器人控制系统文档索引",
+  "total_docs": 507,
+  "doc_site": "https://doc.inexbot.com",
+  "dev_center": "https://ones.inexbot.com/wiki/external/org/8cdyvHV7",
   "categories": {
-    "产品资料": {
-      "count": 18,
-      "subcategories": [
-        "控制系统 (7篇): T30/T31示教器, C1102/C1200/C1201/C2200控制器, NWH01无线手持盒",
-        "显控一体机 (1篇): XPC-150-C1100",
-        "现场总线IO (4篇): R2C/R4C/R4D/R5B EtherCAT IO",
-        "精度标定 (1篇): NexAutoCali",
-        "驱控一体柜 (3篇): X01/X01-D02/X02"
-      ]
+    "products": {
+      "count": 19,
+      "controllers": ["C1102", "C1103", "C1201", "C2200"],
+      "teach_pendants": ["T30", "T31", "T40"],
+      "wireless": ["NWH01"],
+      "cabinets": ["X01", "X01-D02", "X02"],
+      "display": ["XPC-150-NC"],
+      "io_modules": ["R2C", "R4C", "R4D", "R5B"],
+      "calibration": ["NexAutoCali"]
     },
-    "技术资料": {
+    "tech_refs": {
       "count": 5,
-      "items": ["伺服报错代码", "支持的伺服型号", "支持的外部轴类型", "支持的机器人类型", "通讯协议地址码"]
+      "topics": ["servo_errors", "servo_models", "external_axis_types", "robot_types", "protocol_addresses"]
     },
-    "操作手册_22.07": {
+    "manuals_22_07": {
       "count": 25,
-      "description": "含系统操作、调试、指令集、焊接/打磨/喷涂/冲压/激光切割/视觉等工艺手册"
+      "topics": ["system", "debug", "instructions", "calibration", "welding", "grinding", "spraying", "stamping", "laser_cutting", "vision", "seam_tracking", "modbus", "network"]
     },
-    "操作手册_24.03": {
+    "manuals_24_03": {
       "count": 78,
-      "description": "最新版手册，运动控制类/程序控制类指令、Lua教程、机器人定制适配、7000端口协议"
+      "description": "Current stable version",
+      "topics": ["motion_instructions", "program_control", "variables", "lua", "port_7000", "modbus", "eip", "opcua", "tcp", "welding", "laser_cutting", "grinding", "palletizing", "vision", "multi_robot", "kinematics"]
     },
-    "常见问题": {
+    "manuals_25_01": {
+      "count": 4,
+      "description": "Latest version (NEW)",
+      "topics": ["external_axis", "tcp_calibration", "user_coordinate", "io_timer_operations"]
+    },
+    "faq": {
       "count": 372,
-      "items": "23篇分类FAQ + 349篇独立伺服报错页面"
+      "categories": 23,
+      "servo_error_pages": 349,
+      "servo_brands": ["久同", "摩通", "新时达", "杰美康", "清能德创", "禾川", "迈信"]
     },
-    "行业方案": {
+    "industry_solutions": {
       "count": 2,
-      "items": ["协作码垛", "激光切割"]
+      "topics": ["collaborative_palletizing", "laser_cutting"]
     }
   },
-  "last_sync": "2026-06-03T12:00:00Z",
-  "hashmap_url": "https://doc.inexbot.com/hashmap.json"
+  "updates": {
+    "2026-06-22": {
+      "new_docs": 7,
+      "removed_docs": 2,
+      "new": ["T40 teach pendant", "C1103 controller", "XPC-150-NC display", "25.01 manual version (4 docs)"],
+      "removed": ["C1200 controller", "XPC-150-C1100 display"]
+    }
+  },
+  "quick_qa": [
+    {
+      "q": "C1201 controller interfaces",
+      "a": "1×EtherCAT + 3×Ethernet, 2×CAN, 1×RS485, 1×RS232, 16DI/16DO, 2 encoder inputs, 2 PWM outputs. Intel Celeron J6412, 4GB RAM, Linux RT"
+    },
+    {
+      "q": "Python connection methods",
+      "a": "Port 7000 (JSON over TCP) for joint/variable/IO control; TCP Server/Client for custom communication"
+    },
+    {
+      "q": "Welding instructions",
+      "a": "ARCON, ARCOFF, ARCSET, WVON, WVOFF, FSWELDON/OFF, CIL, SPOTWELD, REFP, FEEDWIRE"
+    }
+  ]
 }
