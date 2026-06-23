@@ -1,7 +1,7 @@
 ---
 name: inexbot-doc
 category: motion-control
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（507篇文档，含349篇独立伺服报错页面，含25.01版本4篇新文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（510篇文档，含349篇独立伺服报错页面，含25.01版本7篇新文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
 ---
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
@@ -307,7 +307,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `操作手册_24.03版本_森峰需求.md` | 森峰客户定制需求 |
 | `操作手册_24.03版本_天机需求.md` | 天机客户定制需求 |
 
-### 操作手册 25.01版本（4篇）— 最新版
+### 操作手册 25.01版本（7篇）— 最新版
 
 | 文档 | 用途 |
 |------|------|
@@ -315,6 +315,9 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `操作手册_25.01版本_工具手标定.md` | TCP 标定 |
 | `操作手册_25.01版本_用户坐标标定手册.md` | 工件坐标标定 |
 | `操作手册_25.01版本_输入输出类_定时器类_运算类手册.md` | 输入输出/定时器/运算指令 |
+| `操作手册_25.01版本_修改机器人点位.md` | 点位修改方法（25.01版） |
+| `操作手册_25.01版本_变量类_字符串类手册.md` | 变量类+字符串类手册（25.01版） |
+| `操作手册_25.01版本_坐标系类_网络通讯类.md` | 坐标系类+网络通讯类（25.01版） |
 
 ---
 
@@ -461,6 +464,23 @@ md-to-pdf 文档名.md
 
 ⚠️ **坑**：在 `terminal()` 里使用 Python f-string 内联 `{TOKEN}` 会被 tirith 静默拦截（curl 执行但输出为空文件）。**必须**用 `$(cat /tmp/gh_token.txt)` 子 shell 方式注入 token。
 
+⚠️ **坑2：超大 base64 字符串的 shell 转义问题** — 当文件较大时（如 hash-map-snapshot.json 约 34KB），shell 变量 `$B64` 中含有的特殊字符会导致 `python3 -c` 内的 JSON payload 解析失败或超时。**推荐变体**：让 `python3 -c` 直接从文件读取并编码，而非先 base64 再传变量：
+
+```bash
+python3 -c "
+import base64, json
+with open('$DIR/$f', 'rb') as fh:
+    b64 = base64.b64encode(fh.read()).decode()
+payload = {'message': 'Auto-sync $f', 'content': b64}
+sha = '\$SHA'
+if sha:
+    payload['sha'] = sha
+with open('/tmp/payload.json', 'w') as fh:
+    json.dump(payload, fh)
+print('Payload written')
+"
+```
+
 ```python
 # 在 execute_code 中执行此脚本
 from hermes_tools import terminal
@@ -592,7 +612,8 @@ elif not all_old_changed and len(changed) > 0:
 每一轮 cron 仍需对比完整哈希列表，因为：
 - 即使仅拆包/主题升级也会触发全量 hash 变化
 - 只有通过 `new_docs` / `removed` 可以判定站点是否上架了新内容
-- 上一次检测到的 `all_old_changed` 场景是 2026-06-22（+7 新文档: T40, C1103, XPC-150-NC, 25.01版本4篇; -2 移除: C1200, XPC-150-C1100）
+- 上一次检测到的 `all_old_changed` 场景是 2026-06-22（+7 新文档: T40, C1103, XPC-150-NC, 25.01版本4篇; -2 移除: C1200, XPC-150-C1100）。本轮 cron 2026-06-22 为首次完整执行，检测到 site rebuild + 新文档上架。
+- 2026-06-23: +3 新文档到 25.01 版本（修改机器人点位, 变量类+字符串类手册, 坐标系类+网络通讯类）。站点 rebuild（全量 hash 变化）。无移除。本地 SKILL.md 已更新。
 
 ### 更新检测方法
 
