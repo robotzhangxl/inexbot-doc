@@ -1,10 +1,8 @@
 ---
 name: inexbot-doc
 category: motion-control
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（512篇文档，含349篇独立伺服报错页面，含25.01版本9篇新文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
-last_synced: 2026-06-24
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（518篇文档，含349篇独立伺服报错页面，含25.01版本14篇新文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
 ---
-
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
 
@@ -310,7 +308,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `操作手册_24.03版本_森峰需求.md` | 森峰客户定制需求 |
 | `操作手册_24.03版本_天机需求.md` | 天机客户定制需求 |
 
-### 操作手册 25.01版本（9篇）— 最新版
+### 操作手册 25.01版本（14篇）— 最新版
 
 | 文档 | 用途 |
 |------|------|
@@ -323,6 +321,11 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `操作手册_25.01版本_坐标系类_网络通讯类.md` | 坐标系类+网络通讯类（25.01版） |
 | `操作手册_25.01版本_位置变量类.md` | 位置变量详解（25.01版新增） |
 | `操作手册_25.01版本_速度参数.md` | 速度参数配置（25.01版新增） |
+| `操作手册_25.01版本_finstcp使用手册.md` | FINSTCP 通讯协议（25.01版） |
+| `操作手册_25.01版本_modbus功能使用手册.md` | Modbus RTU/TCP 功能（25.01版） |
+| `操作手册_25.01版本_指令参数.md` | 指令参数说明（25.01版） |
+| `操作手册_25.01版本_数据上传.md` | 数据上传功能（25.01版） |
+| `操作手册_25.01版本_机器人打包位置设置功能.md` | 机器人打包位置设置（25.01版） |
 
 ---
 
@@ -448,7 +451,7 @@ md-to-pdf 文档名.md
 | 操作 | 建议 timeout | 说明 |
 |------|-------------|------|
 | `hashmap.json` 请求 | 60-90s | VitePress 生成大 hashmap 有时较慢 |
-| 单个 GitHub API 请求 | 15s | 通常足够 |
+| 单个 GitHub API 请求 | 15s | ⚠️ 实测可能超时；建议 curl 加 `--connect-timeout 10 --max-time 30`，subprocess timeout 设为 35s |
 | Python 脚本总体执行 | 120s | 含全部 7 文件上传 |
 
 ### 安全扫描限制 (tirith)
@@ -490,9 +493,9 @@ for f_name in FILES:
         continue
 
     # Get SHA of existing file
-    subprocess.run(["curl", "-s", "-o", "/tmp/gh_get.json",
+    subprocess.run(["curl", "-s", "--connect-timeout", "10", "--max-time", "30", "-o", "/tmp/gh_get.json",
         f"https://api.github.com/repos/{REPO}/contents/{f_name}",
-        "-H", f"Authorization: token {TOKEN}"], timeout=15)
+        "-H", f"Authorization: token {TOKEN}"], timeout=35)
 
     with open("/tmp/gh_get.json") as fh:
         data = json.load(fh)
@@ -511,11 +514,11 @@ for f_name in FILES:
         json.dump(payload, fh)
 
     # PUT upload
-    subprocess.run(["curl", "-s", "-o", "/tmp/gh_put.json", "-X", "PUT",
+    subprocess.run(["curl", "-s", "--connect-timeout", "10", "--max-time", "30", "-o", "/tmp/gh_put.json", "-X", "PUT",
         f"https://api.github.com/repos/{REPO}/contents/{f_name}",
         "-H", f"Authorization: token {TOKEN}",
         "-H", "Content-Type: application/json",
-        "-d", "@/tmp/payload.json"], timeout=15)
+        "-d", "@/tmp/payload.json"], timeout=35)
 
     with open("/tmp/gh_put.json") as fh:
         result = json.load(fh)
@@ -567,6 +570,7 @@ elif not all_old_changed and len(changed) > 0:
 - 上一次检测到的 `all_old_changed` 场景是 2026-06-22（+7 新文档: T40, C1103, XPC-150-NC, 25.01版本4篇; -2 移除: C1200, XPC-150-C1100）。本轮 cron 2026-06-22 为首次完整执行，检测到 site rebuild + 新文档上架。
 - 2026-06-23: +3 新文档到 25.01 版本（修改机器人点位, 变量类+字符串类手册, 坐标系类+网络通讯类）。站点 rebuild（全量 hash 变化）。无移除。本地 SKILL.md 已更新。
 - 2026-06-24: +2 新文档到 25.01 版本（位置变量类, 速度参数）。站点 rebuild（全量 hash 变化）。无移除。本地 SKILL.md 已更新。
+- 2026-07-07: +6 新文档（22.07版本1篇: 冲压工艺手册子页面; 25.01版本5篇: finstcp使用手册, modbus功能使用手册, 指令参数, 数据上传, 机器人打包位置设置功能）。站点 rebuild。无移除。SKILL.md 已同步（512→518篇）。
 
 ### 更新检测方法
 
@@ -682,4 +686,3 @@ A: 两种主流方式：① 使用 7000 端口协议（JSON over TCP），查询
 **Q: 伺服报 E001 是什么错误？**
 A: 查伺服报错代码文档。
 → `技术资料_常见问题与解决方案_伺服报错代码.md`
-
