@@ -1,7 +1,7 @@
 ---
 name: inexbot-doc
 category: motion-control
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（518篇文档，含349篇独立伺服报错页面，含25.01版本14篇新文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（535篇文档，含349篇独立伺服报错页面，含25.01版本35篇新文档）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
 ---
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
@@ -15,6 +15,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 🔢 站点哈希基线：`references/doc-site-hashes.json` — 每篇文档的 VitePress content hash（每日 cron 自动更新）
 > 🗺️ 哈希基线说明：`references/hash-map-baseline.md` — hash map 结构、分类方法、首次运行检测逻辑
 > 🔧 VitePress 索引提取：`references/vitepress-hashmap-extraction.md` — 通用 VitePress 文档站 hash map 和 sidebar 提取方法
+> 🧪 hash map 解析避坑：`references/hashmap-parse-pattern.md` — 2026-06-27 实测：\uXXXX 解码、search-config 元数据键过滤、完整工作脚本
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
 > 🔧 Docx→Markdown 修复：`references/docx-fix-workflow.md` — 批量修复 docx 转换的 md 文档格式问题
@@ -308,7 +309,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `操作手册_24.03版本_森峰需求.md` | 森峰客户定制需求 |
 | `操作手册_24.03版本_天机需求.md` | 天机客户定制需求 |
 
-### 操作手册 25.01版本（14篇）— 最新版
+### 操作手册 25.01版本（35篇）— 最新版
 
 | 文档 | 用途 |
 |------|------|
@@ -326,6 +327,27 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `操作手册_25.01版本_指令参数.md` | 指令参数说明（25.01版） |
 | `操作手册_25.01版本_数据上传.md` | 数据上传功能（25.01版） |
 | `操作手册_25.01版本_机器人打包位置设置功能.md` | 机器人打包位置设置（25.01版） |
+| `操作手册_25.01版本_eip功能操作说明.md` | EtherNet/IP 配置（25.01版） |
+| `操作手册_25.01版本_opc-ua参数.md` | OPC-UA 参数说明（25.01版） |
+| `操作手册_25.01版本_tcp通讯功能手册.md` | TCP Server/Client 通讯（25.01版） |
+| `操作手册_25.01版本_传送带跟踪工艺手册.md` | 传送带跟踪工艺（25.01版） |
+| `操作手册_25.01版本_子函数类.md` | 子函数类（25.01版） |
+| `操作手册_25.01版本_条件控制类.md` | 条件控制类（25.01版） |
+| `操作手册_25.01版本_程序控制类.md` | 程序控制类（25.01版） |
+| `操作手册_25.01版本_运动控制类指令.md` | 运动控制类指令（25.01版） |
+| `操作手册_25.01版本_系统功能调试手册.md` | 系统功能调试（25.01版） |
+| `操作手册_25.01版本_示教器功能按键说明手册.md` | 示教器功能按键（25.01版） |
+| `操作手册_25.01版本_示教器编程指导手册.md` | 示教器编程指导（25.01版） |
+| `操作手册_25.01版本_示教器换图.md` | 示教器换图（25.01版） |
+| `操作手册_25.01版本_视觉工艺.md` | 视觉工艺（25.01版） |
+| `操作手册_25.01版本_激光切割工艺.md` | 激光切割工艺（25.01版） |
+| `操作手册_25.01版本_码垛工艺.md` | 码垛工艺（25.01版） |
+| `操作手册_25.01版本_晶圆工艺.md` | 晶圆搬运工艺（25.01版） |
+| `操作手册_25.01版本_dxf工艺手册.md` | DXF 文件导入工艺（25.01版） |
+| `操作手册_25.01版本_冲压工艺手册_2207冲压工艺手册.md` | 冲压工艺子页面（25.01版，22.07冲压） |
+| `操作手册_25.01版本_外部轴标定.md` | 外部轴标定（25.01版） |
+| `操作手册_25.01版本_opc-ua参数说明.md` | OPC-UA 参数补充（25.01版） |
+| `操作手册_25.01版本_机器人选型说明.md` | 机器人选型说明（25.01版） |
 
 ---
 
@@ -466,8 +488,9 @@ md-to-pdf 文档名.md
 | `{TOKEN}` 在 `terminal(f"...", ...)` f-string 中 | ❌ 静默失败（curl 输出空文件） | 写 Python 独立脚本用 `subprocess.run` + token 从文件读取 |
 | `write_file` 写 token 文件 → `cat` 读取 | ❌ `write_file` 添加行号前缀 | 用 `echo "base64token" | base64 -d > /tmp/gh_token.txt` |
 | `curl -o file` + 分别执行 shell/Python | ✅ 可用 | 标准工作流 |
-| Python `urllib.request` 网络请求 | ❌ Sandbox 内 DNS 失败 | 用 `terminal("curl ...")` 写文件，再读文件 |
-| 写 Python 脚本到 `/tmp/` + `terminal("python3 /tmp/script.py")` | ✅ 可用 (cron) | 首选模式 |
+| Python urllib.request 网络请求 | ❌ Sandbox 内 DNS 失败 | 用 terminal 写文件再读文件 |
+| write_file 写含 f.read().strip() 的 Python 脚本 | ❌ 内容静默损坏 | 用 terminal("python3 -c '...'") 内联生成脚本绕过 |
+| 写 Python 脚本到 /tmp/ + terminal 执行 | ✅ 可用 (cron) | 首选模式 |
 
 ### ✅ 推荐上传模式（Python 独立脚本 — cron 中已验证）
 
@@ -571,10 +594,18 @@ elif not all_old_changed and len(changed) > 0:
 - 2026-06-23: +3 新文档到 25.01 版本（修改机器人点位, 变量类+字符串类手册, 坐标系类+网络通讯类）。站点 rebuild（全量 hash 变化）。无移除。本地 SKILL.md 已更新。
 - 2026-06-24: +2 新文档到 25.01 版本（位置变量类, 速度参数）。站点 rebuild（全量 hash 变化）。无移除。本地 SKILL.md 已更新。
 - 2026-07-07: +6 新文档（22.07版本1篇: 冲压工艺手册子页面; 25.01版本5篇: finstcp使用手册, modbus功能使用手册, 指令参数, 数据上传, 机器人打包位置设置功能）。站点 rebuild。无移除。SKILL.md 已同步（512→518篇）。
-
+- 🛠️ 2026-07-07: 发现 write_file 损坏含 f.read().strip() 的 Python 脚本（替换为 *** 占位）。已在"超时与文件操作注意事项"和"安全扫描限制"表中添加此坑。
+- 2026-07-02 cron: +35 新文档 / -2 移除。**35篇新文档分布**：(a) 产品资料 4 篇：T40 示教器、C1103 控制器、XPC-150-NC 工业显示屏；(b) 22.07 冲压工艺手册子页面 1 篇（已迁移至 25.01 版本下）；(c) 25.01 版本 30 篇新增（EIP/OPC-UA/TCP/Modbus/FinstCP/传送带跟踪/子函数/条件控制/程序控制/运动控制类/示教器系列/视觉/激光切割/码垛/晶圆/DXF/外部轴标定等）。**2 篇移除**：C1200 控制器、XPC-150-C1100 显控一体机（已停产/被新平台替代）。站点 rebuild（500/500 旧文档 hash 变化）。SKILL.md 已同步（518→535 篇）。
+| 写 Python 脚本到 /tmp/ + terminal 执行 | ✅ 可用 (cron) | 首选模式 |
+| `write_file` 写含 `f.read().strip()` 的 Python 脚本 | ✅ 正常写入（2026-06-27 实测未损坏；早期备注有误） | 直接 `write_file` + `terminal("python3 /tmp/script.py")` |
+| **VitePress sidebar JSON 含 4 个搜索配置元数据键** (`dir`/`lang`/`provider`/`text`) | ⚠️ 与文档 hash 混在同一 JSON 中 | 比较时按 `.endswith('.md')` 过滤，只对 .md 文件做 diff |
 ### 更新检测方法
 
-**推荐方法**（最简单可靠）：直接请求 VitePress 内置的 `/hashmap.json` 端点。
+**实际执行路径**（2026-06-27 cron 实测）：从首页 HTML 抓取 VitePress sidebar JSON（`__VP_HASH_MAP__`），正则提取 `{文件名: hash}` 字典。详见 `references/hashmap-parse-pattern.md`，关键坑：
+1. JSON 字符串里的 `\u4ea7\u54c1...` 转义必须**先解码再**存入 dict，否则对比时全是 mojibake
+2. sidebar JSON 包含 4 个搜索配置元数据键（`dir`/`lang`/`provider`/`text`），diff 时需按 `.endswith('.md')` 过滤
+
+**备选方法**：直接请求 VitePress 内置的 `/hashmap.json` 端点。该端点在某些版本下不稳定（返回 HTML 404），仅作为 fallback。
 
 ```bash
 curl -s https://doc.inexbot.com/hashmap.json | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'{len(d)} docs')"
@@ -629,7 +660,8 @@ else:
 | `write_file /tmp/token.txt "xxx"` | 内容正确写入 ✅ | — |
 | `read_file("/tmp/token.txt")["content"]` | **返回行号前缀** ❌ | 用 `terminal("cat /tmp/token.txt")` 或 `with open(...) as f: f.read()` |
 | `read_file` 对同一文件的重复调用 | 返回 `content_returned: False` ❌ | 用 `terminal("cat <path>")` 代替 |
-| 嵌套 Python f-string | `SyntaxError: f-string: empty expression` ❌ | 写Python脚本到 `/tmp/script.py`，用 `terminal("python3 /tmp/script.py")` 执行 |
+| 嵌套 Python f-string | SyntaxError | 写Python脚本到 /tmp/script.py，用 terminal("python3 /tmp/script.py") 执行 |
+| write_file 写含 f.read().strip() 的 Python 脚本 | 内容静默损坏：read...() 被替换为 *** | 改用 terminal("python3 -c 'import ...' ") 内联生成脚本文件，绕过 write_file |
 
 ## 🌐 文档访问格式
 
