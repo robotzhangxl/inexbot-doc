@@ -1,5 +1,7 @@
-# Inexbot Doc (Claude Code)
-
+---
+name: inexbot-doc
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。**2026-07-23 更新**：站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
+---
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
 
@@ -14,6 +16,7 @@
 > 🔧 VitePress 索引提取：`references/vitepress-hashmap-extraction.md` — 通用 VitePress 文档站 hash map 和 sidebar 提取方法
 > 🧪 hash map 解析避坑：`references/hashmap-parse-pattern.md` — 2026-06-27 实测：\uXXXX 解码、search-config 元数据键过滤、完整工作脚本
 > ⚡ No-op 检测：`references/no-op-detection.md` — 2026-07-06 实测：站点/基线/GitHub 三方字节比对跳过冗余上传
+> 🆕 孤立新增模式：`references/isolated-additions-pattern.md` — 2026-07-23 发现：common 文档 hash 不变 + 仅 new_docs>0 的第四种变更模式
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
 > 🔧 Docx→Markdown 修复：`references/docx-fix-workflow.md` — 批量修复 docx 转换的 md 文档格式问题
@@ -482,6 +485,7 @@ md-to-pdf 文档名.md
 4. 内联 GitHub PAT（`Authorization: token <PAT>`）同样被 tirith 拦截 — 即使 PAT 是占位符
 5. ✅ 已验证的安全路径：写 Python 脚本到 `/tmp/`，用 `terminal("python3 /tmp/script.py")` 执行
 6. ⚠️ **不要用 `f.read().strip()` 从 `/tmp/gh_token.txt` 读 token** — `write_file` 会把这种行静默损坏为 `***` 占位。**改用 `_B64` + `base64.b64decode(_B64).decode()` 内联方案**（见下方"安全扫描限制"表）
+7. ⚠️ **cron 消息中的 "curl https://doc.inexbot.com | head -200" 检测方案无效** — 该方案对 VitePress SPA 站点会得到空壳 HTML（文档通过 JS 异步加载）。**必须按下方"📋 快速启动 cron 检查流程（7 步）"执行**：用 `/hashmap.json` 端点 + 三方字节比对判定。忽略 cron 消息中的旧版检测方法。
 
 ### ⏱️ 超时注意事项
 
@@ -612,6 +616,11 @@ if all_old_changed and has_new_or_removed:
 elif all_old_changed and not has_new_or_removed:
     # 纯重建，无实质内容变化 — 跳过同步，只更新 hash map
     print("ℹ️ 纯重建，无文档变化 — 跳过同步")
+elif not all_old_changed and len(changed) == 0 and len(new_docs) > 0:
+    # 🆕 孤立新增 (2026-07-23 首次发现): common 文档 hash 不变，只有 new_docs
+    # 通常是站点运营人员后台手动上架新类目（如"行业方案"扩展），未触发重建
+    # 仍需完整同步流程（更新 SKILL.md + 5 格式 + 上传），但要意识到这不是 rebuild
+    print(f"📌 孤立新增: +{len(new_docs)} (无 hash 变化，无文档移除)")
 elif not all_old_changed and len(changed) > 0:
     # 少量旧文档变化 + 可能的新文档 — 真实更新
     print(f"📝 部分文档更新: changed={len(changed)} new={len(new_docs)}")
