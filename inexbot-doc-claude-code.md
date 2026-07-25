@@ -1,10 +1,12 @@
 ---
 name: inexbot-doc
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。**2026-07-23 更新**：站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。**每次回答问题后自动追加 Q&A 到下方缓存区。**
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。每次回答问题后自动追加 Q&A 到下方缓存区。
 ---
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
 
+> 🕐 上次自动同步: 2026-07-24 — SKILL.md 焊接 Q&A 缓存区追加 4 条（DRIFT: SKILL.md 与 GitHub-hermes 不一致，三方 hashmap 一致故跳过 hashmap snapshot 上传）
+> 🕐 上次自动同步: 2026-07-23 — 行业方案新增 11 篇文档（541→552）
 > 纳博特（inexbot）机器人控制系统累计销量超过1万台（据 inexbot.com）。控制器产品线覆盖 C1102/C1103/C1201/C2200 系列，支持 6轴协作、SCARA、四轴并联等多种构型。
 >
 > 文档站点：https://doc.inexbot.com
@@ -17,6 +19,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 🧪 hash map 解析避坑：`references/hashmap-parse-pattern.md` — 2026-06-27 实测：\uXXXX 解码、search-config 元数据键过滤、完整工作脚本
 > ⚡ No-op 检测：`references/no-op-detection.md` — 2026-07-06 实测：站点/基线/GitHub 三方字节比对跳过冗余上传
 > 🆕 孤立新增模式：`references/isolated-additions-pattern.md` — 2026-07-23 发现：common 文档 hash 不变 + 仅 new_docs>0 的第四种变更模式
+> 🔄 SKILL.md-only drift sync：`references/skill-drift-sync.md` — 2026-07-24 发现：站点三方全等但 SKILL.md 相对 GitHub drift 的第五种变更模式（仅重传 6 文件，跳过 hashmap-snapshot.json）
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
 > 🔧 Docx→Markdown 修复：`references/docx-fix-workflow.md` — 批量修复 docx 转换的 md 文档格式问题
@@ -626,6 +629,24 @@ elif not all_old_changed and len(changed) > 0:
     print(f"📝 部分文档更新: changed={len(changed)} new={len(new_docs)}")
 ```
 
+**🆕 第 5 种模式：SKILL.md-only drift（2026-07-24 发现）**
+
+上面 4 种模式都是基于"hashmap 是否有变化"判定。但还有第 5 种：**站点三方全等，但本地 SKILL.md 与 GitHub-hermes 不等**（如日常使用追加 Q&A 导致）。此时 hashmap 不变，只需重传 6 文件，跳过 hashmap-snapshot.json。详见 `references/skill-drift-sync.md`，决策分支：
+
+```python
+# Layer 4 drift-only 上传分支（与上面 4 种并列）
+if site_eq_baseline and gh_hash_eq_baseline and not skill_eq_hermes:
+    # SKILL.md 与 GitHub-hermes 不一致，但站点/基线/GitHub hashmap 三方全等
+    # → 重传 6 文件，跳过 hashmap-snapshot.json
+    files_to_upload = [f for f in FILES if f != "hash-map-snapshot.json"]
+    print(f"🔄 SKILL.md-only drift: 重传 {len(files_to_upload)} 文件")
+elif site_eq_baseline and gh_hash_eq_baseline and skill_eq_hermes:
+    # 4 层全等 — 完全 no-op
+    print("✅ NOOP_ALL_FOUR_EQUAL — 今日无更新")
+```
+
+判断依据：先把 Layer 1/2/3 跑一次三方字节比对；如果三方全等再检查 Layer 4（GitHub-hermes vs 本地 SKILL.md）；如果 Layer 4 不等 → 进入 6 文件上传分支而不是 7 文件全传。
+
 每一轮 cron 仍需对比完整哈希列表，因为：
 - 即使仅拆包/主题升级也会触发全量 hash 变化
 - 只有通过 `new_docs` / `removed` 可以判定站点是否上架了新内容
@@ -639,6 +660,8 @@ elif not all_old_changed and len(changed) > 0:
 - 2026-07-08 cron: **0 变更，0 上传**。三方（站点 `/hashmap.json` 35919B ↔ 本地 hashmap-current 35919B MD5 `cac0343a...` ↔ GitHub `hash-map-snapshot.json` 35919B）字节完全相同。本轮再次确认 no-op 检测流程稳定：单次 `curl GET /contents/hash-map-snapshot.json` 解码 + 与本地字节比对。`execute_code` 在 cron 模式仍被 block，所有计算走 `terminal("python3 /tmp/script.py")`。
 - 2026-07-06 cron: **0 变更，0 上传**。doc.inexbot.com 站点 4 天无变化（535 篇文档，hash 与 2026-07-02 基线完全相同）。GitHub 仓库最后同步 2026-07-02。三方（站点/本地基线/GitHub hash-map-snapshot.json）字节完全相同（35919 字节）。验证方法：先 `GET /contents/hash-map-snapshot.json` 拿到 content，base64 解码后与本地字节比对。已在快速启动流程加 Step 0 "三方字节比对 — 跳过冗余上传"。
 - 2026-07-21 cron: **+6 新增，0 移除，7 文件上传**。站点 25.01 版本新增 6 篇文档（IO 功能使用手册、专用工艺、人机协作、多机协调类指令、新双机功能、独立轴控制）。文档总数 535 → 541。三方比对：站点 21596B ≠ 本地基线 35919B → 需更新。站点 rebuild（全量 hash 变化）。所有 7 个文件（README、5 格式 + hash-map-snapshot.json）成功上传，hash-map-snapshot.json SHA 从 `8c5f1a85` → `39d5512f`，字节大小 35919 → 36266。SKILL.md 已同步（25.01 版本 35 → 41 篇）。GitHub token 文件 `/tmp/inexbot-doc/_token.txt` 完整可用，`token.txt` 被 REDACTED（write_file filter 损坏）。
+- 2026-07-23 cron: **+11 新增，0 移除，7 文件上传**。站点行业方案类目从 2 篇扩展到 13 篇（孤立新增模式：common 文档 hash 全部不变，仅 11 篇新增）。文档总数 541 → 552。三方比对：站点 36858B ≠ 本地基线 36266B → 需更新。**非**站点 rebuild。SKILL.md 已同步（行业方案 2 → 13 篇）。所有 7 个文件成功上传，hash-map-snapshot.json SHA 从 `39d5512f` → `f8592acb`，字节大小 36266 → 36858。详见 `references/isolated-additions-pattern.md`。
+- 2026-07-24 cron: **0 站点变化，6 文件上传（drift-sync）**。站点三方字节全等（36858B），但本地 SKILL.md 相对 GitHub-hermes 产生 993 字节 drift（+4 条焊接 Q&A + 5 行孤立新增模式历史 + frontmatter 块引用修复）。**第 5 种变更模式**：SKILL.md-only drift → 仅重传 6 文件，跳过 hash-map-snapshot.json。节省 1 次 PUT + 1 个空 commit。详见 `references/skill-drift-sync.md` 和 `references/cron-run-2026-07-24-drift-sync.md`。
 ### 更新检测方法
 
 **实际执行路径**（2026-06-27 cron 实测）：从首页 HTML 抓取 VitePress sidebar JSON（`__VP_HASH_MAP__`），正则提取 `{文件名: hash}` 字典。详见 `references/hashmap-parse-pattern.md`，关键坑：
@@ -686,6 +709,12 @@ else:
    - 验证方式：先 GitHub `GET /contents/hash-map-snapshot.json` 拿到 SHA 和 content，base64 解码后与本地字节比较
    - 节省：避免 7 次 GitHub API PUT + 7 次空 commit 污染 commit 历史
    - 实测案例：2026-07-06 cron，4 天无站点变化，三方完全一致 → 输出"今日无更新"，0 次上传
+0.5. **🆕 第 4 层校验 — SKILL.md drift 检测（2026-07-24 启用）**：
+   - 如果三方字节全等，**还要**比对 GitHub `inexbot-doc-hermes.md` 与本地 SKILL.md 字节
+   - Layer 4 不等 + Layer 1/2/3 全等 = SKILL.md-only drift → 走 6 文件上传分支（跳过 hash-map-snapshot.json）
+   - Layer 4 不等 + Layer 1/2/3 不等 = 标准完整流程（7 文件上传）
+   - Layer 4 全等 = 真正的 no-op（0 上传）
+   - 详见 `references/skill-drift-sync.md`
 1. **获取 hash** — `curl -s https://doc.inexbot.com/hashmap.json`（比提取 HTML 中的 `__VP_HASH_MAP__` 更简单）
 2. **比较** — 与 `/tmp/inexbot-doc/hash-map-snapshot.json` 对比（写 Python 脚本到 `/tmp/compare_hash.py`，用 `terminal("python3 /tmp/compare_hash.py")` 执行）
 3. **判断** — 若 0 变化 → 输出"今日无更新"并结束
