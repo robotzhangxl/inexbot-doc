@@ -23,6 +23,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > ⚡ No-op 检测：`references/no-op-detection.md` — 2026-07-06 实测：站点/基线/GitHub 三方字节比对跳过冗余上传
 > 🆕 孤立新增模式：`references/isolated-additions-pattern.md` — 2026-07-23 发现：common 文档 hash 不变 + 仅 new_docs>0 的第四种变更模式
 > 🔄 SKILL.md-only drift sync：`references/skill-drift-sync.md` — 2026-07-24 发现：站点三方全等但 SKILL.md 相对 GitHub drift 的第五种变更模式（仅重传 6 文件，跳过 hashmap-snapshot.json）
+> ⚡ Header-only 瞬时检查：`references/cron-run-2026-07-29-noop.md` — 2026-07-29 新增：用 `curl -I` 只取响应头判定 Last-Modified/ETag，避免无变化时下载完整文件
 > 🛡️ write_file filter 双方案：`references/write-file-filter-quirks.md` — 2026-07-27 修订：方案 A（磁盘 `_token.txt`）+ 方案 B（脚本内嵌 `_B64` + base64）并存，新写脚本默认走 B
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
@@ -669,6 +670,7 @@ elif site_eq_baseline and gh_hash_eq_baseline and skill_eq_hermes:
 - 2026-07-24 cron: **0 站点变化，6 文件上传（drift-sync）**。站点三方字节全等（36858B），但本地 SKILL.md 相对 GitHub-hermes 产生 993 字节 drift（+4 条焊接 Q&A + 5 行孤立新增模式历史 + frontmatter 块引用修复）。**第 5 种变更模式**：SKILL.md-only drift → 仅重传 6 文件，跳过 hash-map-snapshot.json。节省 1 次 PUT + 1 个空 commit。详见 `references/skill-drift-sync.md` 和 `references/cron-run-2026-07-24-drift-sync.md`。
 - 2026-07-25 cron: **0 站点变化，6 文件上传（drift-sync 重演，第 4 次捕获 drift）**。站点三方字节仍全等（36858B，md5 `b6cdef7f...`），但本地 SKILL.md 相对 GitHub-hermes 累积 **2964B drift**（Layer 4 校验文档 + 第 5 模式代码块 + Step 0.5 + 1 行历史条目）。本次复用 `references/skill-drift-sync.md` SOP 完整跑通：重新生成 6 文件 → base64-_B64 token 上传 → 闭环验证（回读 GitHub `inexbot-doc-hermes.md` md5 = 本地 md5）。**新发现**：`generate_formats.py` 模板的硬编码 `doc_count=541` / `industry_solutions=2` / `version="2026-07-21"` 已过时，drift-sync 路径下会输出错误统计 → 新建 `references/generate-formats-pitfalls.md`。详见 `references/cron-run-2026-07-25-drift-sync.md`。
 - 2026-07-27 cron: **0 站点变化，6 文件上传（drift-sync 第 5 次捕获）**。站点三方字节仍全等（36858B，md5 `b6cdef7f...` ↔ GitHub SHA `f8592acb` 36858B 完全字节相同），doc.inexbot.com 站点已 4 天无实质内容变化（自 2026-07-23 起 552 篇文档稳定）。本地 SKILL.md 相对 GitHub-hermes 累积 **1224B drift**（SKILL.md frontmatter description 末尾追加 2026-07-27 cron 记录 + 顶部新增更详细的 2026-07-27 历史条目行）。本次复用 `gen_drift.py` + `upload_drift_v2.py` SOP 跑通：本地 SKILL.md 51494B → 生成 6 格式文件 → base64-_B64 token 上传（README + 5 格式）→ 跳过 hashmap-snapshot.json（与 GitHub 字节已相同）。`generate_formats.py` 硬编码陷阱未触发（本次走 drift 路径用 gen_drift.py）。
+- 2026-07-29 cron: **0 站点变化，0 上传（纯 no-op，3 重确认）**。doc.inexbot.com 站点 6 天无变化（自 2026-07-23 起 552 篇稳定）。**新发现**：用 `curl -I` 只取响应头即可 0 字节下载判定 Last-Modified/ETag，1 秒内完成 Layer 1/2 比对，比下载整个 `index.html` (363 KB) 或 `hashmap.json` (37 KB) 快 100×。站点 Last-Modified `Wed, 22 Jul 2026 09:51:28 GMT` 与 ETag `b6cdef7f...` 均未变。552 路径三方 0 added/0 removed/0 changed。本地 SKILL.md (md5 `3e94a55a...`) == GitHub-hermes (sha `d1a3b492b...`) 字节相同。详见 `references/cron-run-2026-07-29-noop.md`。**坑**：`/hash-map.json`（带连字符）返回 404 HTML，正确端点是 `/hashmap.json`（无连字符）。**坑**：本环境 `127.0.0.1:7890` 代理通常宕 — `curl` 用 `--noproxy '*'`，Python `urllib` 在脚本开头 `os.environ.pop` 全部 `*_PROXY` 变量。
 ### 更新检测方法
 
 **实际执行路径**（2026-06-27 cron 实测）：从首页 HTML 抓取 VitePress sidebar JSON（`__VP_HASH_MAP__`），正则提取 `{文件名: hash}` 字典。详见 `references/hashmap-parse-pattern.md`，关键坑：
@@ -746,6 +748,23 @@ else:
 | `write_file` 写含 `TOKEN=...` 字面量的脚本 | ❌ **内容静默损坏**（被替换为 `***`） | 同上 |
 | `write_file` 写含 `f.read()` 单独调用的脚本 | ❌ **内容静默损坏** | 同上 |
 | `terminal("python3 -c '...'")` 内联生成脚本 | ✅ **完全绕过 write_file filter** | 备选方案，但 terminal 命令长时易超出 token 预算 |
+| `curl https://doc.inexbot.com/hash-map.json`（带连字符） | ❌ **返回 404 HTML**，若用 `json.load` 解析会 `JSONDecodeError` | ✅ 正确端点：`/hashmap.json`（无连字符）— 与 `references/hash-map-baseline.md` 一致 |
+| 本环境代理 `127.0.0.1:7890` 不可用 | ❌ `Connection refused`，curl exit 7；Python `urllib` 同症状 | ✅ `curl --noproxy '*'` 绕过；Python 脚本开头 `os.environ.pop` 全部 `*_PROXY` 变量后再 import urllib |
+
+### ⚡ Step 0 强化：Header-only 瞬时检查（2026-07-29 新增）
+
+完整下载 `index.html` (363 KB) 或 `hashmap.json` (37 KB) 之前，先用 `curl -I` 只取响应头（HEAD 请求，~200 字节返回），1 秒内即可判定 Layer 1/2 是否需要进一步比对：
+
+```bash
+curl -sI --max-time 15 --noproxy '*' https://doc.inexbot.com/ | grep -iE 'last-modified|etag|content-length'
+curl -sI --max-time 15 --noproxy '*' https://doc.inexbot.com/hashmap.json | grep -iE 'last-modified|etag|content-length'
+```
+
+- 若 `Last-Modified` 与上次基线一致 → 站点未 rebuild，直接进入 Step 0.5（SKILL.md drift 检查）
+- 若 `Last-Modified` 变化但 ETag 未变 → VitePress CDN 重写但内容相同（罕见，仍下载确认）
+- 若 ETag 变化 → 真正更新，继续 Step 1 下载 hashmap
+
+实测收益：从 ~5s 下载 + 解析降到 <1s 头检查，cron 整体耗时减半。**前提**：每次执行都记录上次成功的 Last-Modified/ETag（与 Layer 1 三方字节比对中的 SHA 共同作为基线）。
 
 ## 🌐 文档访问格式
 
