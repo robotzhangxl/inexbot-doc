@@ -22,11 +22,19 @@
 | 技术资料 | 5 篇 |
 | 操作手册 22.07 版本 | 25 篇 |
 | 操作手册 24.03 版本 | 78 篇 |
-| 操作手册 25.01 版本 | 41 篇 |
+| **操作手册 25.01 版本** | **41 篇** |
 | 常见问题分类 | 23 篇 |
 | 伺服报错页面 | 349 篇 |
-| 行业方案 | 13 篇 |
+| **行业方案** | **13 篇**（2026-07-23 +11） |
 | **合计** | **552 篇** |
+
+## 🆕 2026-08-03 本次更新
+
+- **类型**：SKILL.md-only drift sync（第 7 次捕获，详见 `references/skill-drift-sync.md`）
+- **站点变化**：0 篇新增 / 0 篇移除 / hash map 完全未变（site == local == GitHub，36858B / md5 `b6cdef7f`）
+- **本地变更**：SKILL.md 累积 Q&A + 2026-07-30/07-31 历史条目 + SOP 文档 → 相对 GitHub hermes 增加 +5074B drift
+- **上传文件**：6 个（README + 5 格式），跳过 `hash-map-snapshot.json`（三方全等）
+- **重大纠正**：2026-07-30/07-31 声称的"PAT 撤销 / 上传假阳性"经 2026-08-03 实测为误判——token 有效（`/user` 200，scope 完整），GitHub main hermes 55269B md5 `375a9db0` 与 07-31 生成文件完全一致，说明当时上传确实落在 main 上
 
 ## 🔗 数据源
 
@@ -36,7 +44,9 @@
 
 ## 🔄 自动同步
 
-本仓库由每日 cron 任务自动检查 doc.inexbot.com 的文档变化，并在有实质更新或本地 Skill 内容漂移时同步。
+本仓库由每日 cron 任务自动同步至 doc.inexbot.com 站点更新。
+同步策略：四方字节比对（site ↔ local baseline ↔ GitHub snapshot ↔ SKILL.md/hermes drift）。
+仅在有实质更新时上传，无更新时静默跳过。
 
 ## 📜 许可
 
