@@ -28,13 +28,13 @@
 | **行业方案** | **13 篇**（2026-07-23 +11） |
 | **合计** | **552 篇** |
 
-## 🆕 2026-08-03 本次更新
+## 🆕 2026-08-04 本次更新
 
-- **类型**：SKILL.md-only drift sync（第 7 次捕获，详见 `references/skill-drift-sync.md`）
+- **类型**：SKILL.md-only drift sync（假阳性修正）
 - **站点变化**：0 篇新增 / 0 篇移除 / hash map 完全未变（site == local == GitHub，36858B / md5 `b6cdef7f`）
-- **本地变更**：SKILL.md 累积 Q&A + 2026-07-30/07-31 历史条目 + SOP 文档 → 相对 GitHub hermes 增加 +5074B drift
+- **本地变更**：修正 SKILL.md 中 2026-07-31 "PAT 撤销" 错误叙事 → 新增 08-04 澄清条目
+- **重大纠正**：2026-07-31 声称的 "PAT 撤销 / 0 上传" 为**假阳性**（死代理 + capture_output 静默吞错所致）。实测 token 有效（api 200），07-30 与 08-03 的上传 commit 均已落在 main 上，repo 本就同步。
 - **上传文件**：6 个（README + 5 格式），跳过 `hash-map-snapshot.json`（三方全等）
-- **重大纠正**：2026-07-30/07-31 声称的"PAT 撤销 / 上传假阳性"经 2026-08-03 实测为误判——token 有效（`/user` 200，scope 完整），GitHub main hermes 55269B md5 `375a9db0` 与 07-31 生成文件完全一致，说明当时上传确实落在 main 上
 
 ## 🔗 数据源
 
