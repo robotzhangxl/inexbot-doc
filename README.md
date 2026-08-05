@@ -28,13 +28,13 @@
 | **行业方案** | **13 篇**（2026-07-23 +11） |
 | **合计** | **552 篇** |
 
-## 🆕 2026-08-04 本次更新
+## 🆕 2026-08-05 本次更新
 
-- **类型**：SKILL.md-only drift sync（假阳性修正）
-- **站点变化**：0 篇新增 / 0 篇移除 / hash map 完全未变（site == local == GitHub，36858B / md5 `b6cdef7f`）
-- **本地变更**：修正 SKILL.md 中 2026-07-31 "PAT 撤销" 错误叙事 → 新增 08-04 澄清条目
-- **重大纠正**：2026-07-31 声称的 "PAT 撤销 / 0 上传" 为**假阳性**（死代理 + capture_output 静默吞错所致）。实测 token 有效（api 200），07-30 与 08-03 的上传 commit 均已落在 main 上，repo 本就同步。
+- **类型**：SKILL.md-only drift sync
+- **站点变化**：0 篇新增 / 0 篇移除 / hash map 完全未变（site == local == GitHub，36858B / md5 `b6cdef7f`，Last-Modified 2026-07-22）
+- **本地变更**：SKILL.md 在 2026-08-04 18:07（晚于 17:57 上传）追加了 08-04 澄清修订（+1544B）：No-Op Check 自验证条目补 08-04 修订、新增「假失败报告纠正」reference、`_token.txt` 读取实测补充、urllib+ProxyHandler 无代理首选网络路径、安全扫描表更新、07-31 复盘改写
 - **上传文件**：6 个（README + 5 格式），跳过 `hash-map-snapshot.json`（三方全等）
+- **闭环验证**：回读 GitHub `inexbot-doc-hermes.md` md5 == 本地 SKILL.md md5
 
 ## 🔗 数据源
 
