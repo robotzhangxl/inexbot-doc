@@ -1,5 +1,6 @@
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
 
+> 🕐 上次自动同步: 2026-08-06 — 站点 **pure VitePress rebuild**（hash map 内容变化但为纯重建）+ SKILL.md-only drift sync：站点 hashmap 36858B / md5 从 `b6cdef7f` → `fd5164f6`（Last-Modified 2026-07-22 → 2026-08-05 08:22，ETag 变），552 篇全量 rehash、0 新增 / 0 移除 / 字节大小不变 = **纯重建，无文档内容更新** → 仅刷新 hash 基线。本地 SKILL.md 64390B（md5 `4239f70e`）≠ GitHub hermes 62862B = **+1528B drift**（08-05 运行结束后累积：08-05 drift sync 实录 reference 条目 + 「每日脚本复用/两批同步模式」SOP 段，晚于批次 B 上传）。复用 `urllib+ProxyHandler({})` 无代理 + 磁盘读 token 全链路：重生成 6 文件 + 刷新 hash-map-snapshot.json → 上传 7 文件 → 闭环验证 GitHub hermes md5 == 本地 SKILL.md（Equal: True）。7 个 commit 已落 main。
 > 🕐 上次自动同步: 2026-08-05 — SKILL.md-only drift sync（第 7 次捕获 drift）：站点 hashmap 仍 36858B / md5=`b6cdef7f`（Last-Modified 2026-07-22，**无文档更新**）。本地 SKILL.md 62157B（md5 `6e517174`）≠ GitHub hermes 60613B = **+1544B drift**（08-04 澄清修订在 18:07 追加，晚于 17:57 上传）。复用 `urllib+ProxyHandler({})` 无代理 + 磁盘 `_token.txt` 全链路：重新生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5=`6e51717464d11142` == 本地 SKILL.md（**Equal: True**）。6 个 commit（`8c10620c`/`ee0f8e0f`/`8c30e52f`/`337aa3e7`/`cc73f922`/`33a1b17f`）已落 main。
 > 🕐 上次自动同步: 2026-08-04 — **NOOP 澄清 + 假阳性修正**：站点 hashmap 仍 36858B / md5=`b6cdef7f...`（9+ 天无变化，**无文档更新**）。GitHub hermes `1f2cdea5d5f3b957` 60343B == 本地 SKILL.md `1f2cdea5d5f3b957` 60343B（**已闭合，无 drift**）。**重大修正**：2026-07-31 "PAT 撤销 (BLOCKED_PAT_REVOKED)" 结论为**假阳性**——实因代理 `127.0.0.1:7890` 已死 + `subprocess.run(capture_output=True)` 静默吞 curl exit 7，而非 token 被撤销。实测 `_token.txt` 内 PAT 对 api.github.com 返回 200（有效）。2026-07-30 drift-sync 的 6 个 commit（`cfe1ced1`/`dc4be437`/`791d0a0f`/`aa75f4c2`/`de320ddb`/`ed5266f3`）**已确认全部落在 main 上**（git log 可见，非假阳性）。2026-08-03 cron 已成功执行 SKILL.md-only drift sync 并上传 6 文件（commit `0818b829`→`6d107ef5`）。本次为纯修正 SKILL.md 中错误叙事，重生成 6 文件并上传。**后续 cron 前置**：① 不要因 07-31 报告而轮换 PAT（token 有效）；② 所有 curl 必须 `--noproxy '*'`；③ check_noop 脚本禁用 `capture_output`，加 returncode 显式检查 + 输入文件 mtime staleness 检查；④ 上传后必须跑 check_commits.py + 回读 hermes 对比 md5 闭环验证。详见 references/cron-run-2026-08-04-clarify.md。
 > 🕐 上次自动同步: 2026-07-31 — **BLOCKED_PAT_REVOKED**（0 上传）。⚠️ 该结论已于 2026-08-04 被证伪——见上方 08-04 条目。实际是死代理 + capture_output 静默吞错导致误判；token 有效。GitHub PAT `ghp_QK...DS4v` 未被撤销，api.github.com 返回 200。
@@ -27,6 +28,7 @@
 > 🛡️ write_file filter 双方案：`references/write-file-filter-quirks.md` — 2026-07-27 修订：方案 A（磁盘 `_token.txt`）+ 方案 B（脚本内嵌 `_B64` + base64）并存，新写脚本默认走 B
 > 🚨 No-Op Check 自验证：`references/noop-check-must-self-validate.md` — 2026-07-31 新增：check_today.py 用 stale `/tmp/gh_hash.json` (mtime 4 天前) + 死代理 + 已撤销 PAT, 输出"Layer 1/2/3/4 OK"假成功。No-op 检测脚本必须自带 file mtime staleness 检查 + returncode 显式检查 + pre-flight token 验证 + commit list 闭环验证，否则"no-op"会掩盖"全部失败"。**2026-08-04 修订**：负面结论（"PAT 撤销/上传未落 main/0 上传"）同样可能是死代理+stale 数据造成的**假失败报告**，写入 SKILL.md 前必须用 no-proxy 直连 + commit list 实证
 > 🚨 假失败报告纠正：`references/cron-run-2026-08-04-clarify.md` — 2026-08-04 新增：07-31 "PAT 撤销" 被证伪（token 有效、commit 在 main）；urllib+ProxyHandler({}) 直连全链路验证可用；后续 cron 不要因 07-31 报告轮换 PAT
+> 🔁 08-05 drift sync 实录：`references/cron-run-2026-08-05-drift-sync.md` — 2026-08-05 新增：+1544B drift（08-04 澄清修订晚于上传追加）；**cp+patch 复用昨日脚本**（只改日期字符串）；**两批同步模式**（批次 B 追加 cron 条目后 README 自动 SKIP — README 不嵌入 SKILL.md body）
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
@@ -610,6 +612,11 @@ for f_name in FILES:
 # 写入脚本（注意：write_file 内容会经过 token 过滤，避免触发 ***
 python3 /tmp/upload_github.py
 ```
+
+**🔄 每日脚本复用（2026-08-05 验证）**：不要每天从零写 gen/upload/verify 脚本——`cp` 昨天验证过的脚本再 `patch` 日期字符串（`TODAY`、commit message、README「本次更新」段、verify marker）即可。复用已验证的 urllib+`ProxyHandler({})` 无代理 + 磁盘读 token 代码，减少 write_file filter 对全新脚本的暴露面（历史坑：`f.read()`/`TOKEN=` 字面量被静默替换为 `***`）。上传脚本自带 byte-identical 分支，会自动 SKIP 与 GitHub 相同的文件。
+
+**两批同步模式**：先同步 drift 内容（批次 A，6 文件全传）并闭环验证，再向 SKILL.md 追加「🕐 上次自动同步」cron 条目 → 重生成 → 重传（批次 B）。批次 B 中 **README 自动 SKIP**（byte-identical）——README 是独立模板，**不嵌入 SKILL.md body**，只有模板内容变化（如新日期更新段）才需要更新；5 个内容文件（hermes/claude/openclaw/opencode/raw）重新上传。**快速诊断 drift 来源**：本地 SKILL.md ≠ 本地 `inexbot-doc-hermes.md`（gen 脚本逐字节复制 SKILL.md）→ SKILL.md 在生成后被修改，必须重新生成再上传。
+
 ### ⚡ VitePress 重建陷阱
 
 VitePress 站点每次 rebuild 都会重新生成**所有文档的 content hash**，即使内容完全未变。这意味着：
