@@ -28,12 +28,12 @@
 | **行业方案** | **13 篇**（2026-07-23 +11） |
 | **合计** | **552 篇** |
 
-## 🆕 2026-08-05 本次更新
+## 🆕 2026-08-06 本次更新
 
-- **类型**：SKILL.md-only drift sync
-- **站点变化**：0 篇新增 / 0 篇移除 / hash map 完全未变（site == local == GitHub，36858B / md5 `b6cdef7f`，Last-Modified 2026-07-22）
-- **本地变更**：SKILL.md 在 2026-08-04 18:07（晚于 17:57 上传）追加了 08-04 澄清修订（+1544B）：No-Op Check 自验证条目补 08-04 修订、新增「假失败报告纠正」reference、`_token.txt` 读取实测补充、urllib+ProxyHandler 无代理首选网络路径、安全扫描表更新、07-31 复盘改写
-- **上传文件**：6 个（README + 5 格式），跳过 `hash-map-snapshot.json`（三方全等）
+- **类型**：site rebuild + SKILL.md drift sync
+- **站点变化**：hash map 内容变化但为**纯 VitePress rebuild**（md5 `b6cdef7f` → `fd5164f6`，552 篇全量 rehash，0 新增 / 0 移除 / 字节大小不变 = 无文档内容更新）→ 刷新 hash 基线（local baseline + `hash-map-snapshot.json`）
+- **本地变更**：SKILL.md 在 2026-08-05 批次 B 上传后追加了「08-05 drift sync 实录」reference 条目 + 「每日脚本复用/两批同步模式」SOP 段（+1528B drift）
+- **上传文件**：7 个（README + 5 格式 + `hash-map-snapshot.json`）
 - **闭环验证**：回读 GitHub `inexbot-doc-hermes.md` md5 == 本地 SKILL.md md5
 
 ## 🔗 数据源
