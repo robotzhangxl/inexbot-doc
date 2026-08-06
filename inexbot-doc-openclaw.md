@@ -36,6 +36,7 @@ version: 1.0.0
 > 🚨 No-Op Check 自验证：`references/noop-check-must-self-validate.md` — 2026-07-31 新增：check_today.py 用 stale `/tmp/gh_hash.json` (mtime 4 天前) + 死代理 + 已撤销 PAT, 输出"Layer 1/2/3/4 OK"假成功。No-op 检测脚本必须自带 file mtime staleness 检查 + returncode 显式检查 + pre-flight token 验证 + commit list 闭环验证，否则"no-op"会掩盖"全部失败"。**2026-08-04 修订**：负面结论（"PAT 撤销/上传未落 main/0 上传"）同样可能是死代理+stale 数据造成的**假失败报告**，写入 SKILL.md 前必须用 no-proxy 直连 + commit list 实证
 > 🚨 假失败报告纠正：`references/cron-run-2026-08-04-clarify.md` — 2026-08-04 新增：07-31 "PAT 撤销" 被证伪（token 有效、commit 在 main）；urllib+ProxyHandler({}) 直连全链路验证可用；后续 cron 不要因 07-31 报告轮换 PAT
 > 🔁 08-05 drift sync 实录：`references/cron-run-2026-08-05-drift-sync.md` — 2026-08-05 新增：+1544B drift（08-04 澄清修订晚于上传追加）；**cp+patch 复用昨日脚本**（只改日期字符串）；**两批同步模式**（批次 B 追加 cron 条目后 README 自动 SKIP — README 不嵌入 SKILL.md body）
+> 🔁 08-06 rebuild+drift sync 实录：`references/cron-run-2026-08-06-rebuild-drift.md` — 2026-08-06 新增：站点 pure VitePress rebuild（md5 `b6cdef7f`→`fd5164f6`，552 全量 rehash、0 增/0 删/大小不变 = 无内容更新 → 仅刷新 hash 基线）+ SKILL.md +1528B drift；**合并触发 → 7 文件全传**（README+5 格式+hash-map-snapshot.json）；`all_old_changed + has_new_or_removed=False` 判定纯 rebuild
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
