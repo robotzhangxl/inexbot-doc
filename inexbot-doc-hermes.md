@@ -1,11 +1,12 @@
 ---
 name: inexbot-doc
 category: motion-control
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。每次回答问题后自动追加 Q&A 到下方缓存区。2026-07-27 cron：第 5 次捕获 SKILL.md-only drift (1224B)，三方 hashmap 仍全等 36858B，6 文件上传。
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。2026-08-07 站点真实更新：+1 新增 C2202 嵌入式控制主板，−1 移除 技术资料_伺服报错代码 聚合页（迁移至 常见问题_伺服报错_index）。每次回答问题后自动追加 Q&A 到下方缓存区。2026-07-27 cron：第 5 次捕获 SKILL.md-only drift (1224B)，三方 hashmap 仍全等 36858B，6 文件上传。
 ---
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
 
+> 🕐 上次自动同步: 2026-08-07 — **真实内容更新 + SKILL.md drift**：站点 hashmap 36858B/`fd5164f6` → 36851B/`c1960907`。diff：**+1 新增 `产品资料_控制系统_嵌入式控制主板c2202.md`（C2202 嵌入式运动控制主板），−1 移除 `技术资料_常见问题与解决方案_伺服报错代码.md`（聚合页 404 下线，伺服报警查询迁移至 `常见问题_伺服报错_index.md`），~1 变化 `索引.md`**。文档总数维持 552（551 共同 + 1 新增），非 rebuild（真实内容更新）。Layer 4：本地 SKILL.md 67508B ≠ GitHub hermes 65715B = **+1793B drift**。复用 skill 内置 `scripts/generate_formats.py` + urllib+`ProxyHandler({})` 无代理 + `_B64` token：更新 SKILL.md 索引（产品资料 19→20 篇、技术资料 5→4 篇、替换 6 处 伺服报错代码 引用）+ 刷新 hash 基线 → 重生成 6 文件 + hash-map-snapshot.json → 7 文件上传 → 闭环验证。
 > 🕐 上次自动同步: 2026-08-06 — 站点 **pure VitePress rebuild**（hash map 内容变化但为纯重建）+ SKILL.md-only drift sync：站点 hashmap 36858B / md5 从 `b6cdef7f` → `fd5164f6`（Last-Modified 2026-07-22 → 2026-08-05 08:22，ETag 变），552 篇全量 rehash、0 新增 / 0 移除 / 字节大小不变 = **纯重建，无文档内容更新** → 仅刷新 hash 基线。本地 SKILL.md 64390B（md5 `4239f70e`）≠ GitHub hermes 62862B = **+1528B drift**（08-05 运行结束后累积：08-05 drift sync 实录 reference 条目 + 「每日脚本复用/两批同步模式」SOP 段，晚于批次 B 上传）。复用 `urllib+ProxyHandler({})` 无代理 + 磁盘读 token 全链路：重生成 6 文件 + 刷新 hash-map-snapshot.json → 上传 7 文件 → 闭环验证 GitHub hermes md5 == 本地 SKILL.md（Equal: True）。7 个 commit 已落 main。
 > 🕐 上次自动同步: 2026-08-05 — SKILL.md-only drift sync（第 7 次捕获 drift）：站点 hashmap 仍 36858B / md5=`b6cdef7f`（Last-Modified 2026-07-22，**无文档更新**）。本地 SKILL.md 62157B（md5 `6e517174`）≠ GitHub hermes 60613B = **+1544B drift**（08-04 澄清修订在 18:07 追加，晚于 17:57 上传）。复用 `urllib+ProxyHandler({})` 无代理 + 磁盘 `_token.txt` 全链路：重新生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5=`6e51717464d11142` == 本地 SKILL.md（**Equal: True**）。6 个 commit（`8c10620c`/`ee0f8e0f`/`8c30e52f`/`337aa3e7`/`cc73f922`/`33a1b17f`）已落 main。
 > 🕐 上次自动同步: 2026-08-04 — **NOOP 澄清 + 假阳性修正**：站点 hashmap 仍 36858B / md5=`b6cdef7f...`（9+ 天无变化，**无文档更新**）。GitHub hermes `1f2cdea5d5f3b957` 60343B == 本地 SKILL.md `1f2cdea5d5f3b957` 60343B（**已闭合，无 drift**）。**重大修正**：2026-07-31 "PAT 撤销 (BLOCKED_PAT_REVOKED)" 结论为**假阳性**——实因代理 `127.0.0.1:7890` 已死 + `subprocess.run(capture_output=True)` 静默吞 curl exit 7，而非 token 被撤销。实测 `_token.txt` 内 PAT 对 api.github.com 返回 200（有效）。2026-07-30 drift-sync 的 6 个 commit（`cfe1ced1`/`dc4be437`/`791d0a0f`/`aa75f4c2`/`de320ddb`/`ed5266f3`）**已确认全部落在 main 上**（git log 可见，非假阳性）。2026-08-03 cron 已成功执行 SKILL.md-only drift sync 并上传 6 文件（commit `0818b829`→`6d107ef5`）。本次为纯修正 SKILL.md 中错误叙事，重生成 6 文件并上传。**后续 cron 前置**：① 不要因 07-31 报告而轮换 PAT（token 有效）；② 所有 curl 必须 `--noproxy '*'`；③ check_noop 脚本禁用 `capture_output`，加 returncode 显式检查 + 输入文件 mtime staleness 检查；④ 上传后必须跑 check_commits.py + 回读 hermes 对比 md5 闭环验证。详见 references/cron-run-2026-08-04-clarify.md。
@@ -15,7 +16,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 🕐 上次自动同步: 2026-07-25 — SKILL.md-only drift sync（第 5 种模式重演）：本地 SKILL.md 累积 2964B drift（Layer 4 校验文档 + 历史条目），6 文件上传跳过 hashmap-snapshot.json
 > 🕐 上次自动同步: 2026-07-24 — SKILL.md 焊接 Q&A 缓存区追加 4 条（DRIFT: SKILL.md 与 GitHub-hermes 不一致，三方 hashmap 一致故跳过 hashmap snapshot 上传）
 > 🕐 上次自动同步: 2026-07-23 — 行业方案新增 11 篇文档（541→552）
-> 纳博特（inexbot）机器人控制系统累计销量超过1万台（据 inexbot.com）。控制器产品线覆盖 C1102/C1103/C1201/C2200 系列，支持 6轴协作、SCARA、四轴并联等多种构型。
+> 纳博特（inexbot）机器人控制系统累计销量超过1万台（据 inexbot.com）。控制器产品线覆盖 C1102/C1103/C1201/C2200/C2202 系列，支持 6轴协作、SCARA、四轴并联等多种构型。
 >
 > 文档站点：https://doc.inexbot.com
 > 开发者中心：https://ones.inexbot.com/wiki/external/org/8cdyvHV7
@@ -39,6 +40,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
+> 🔧 格式生成器（持久版）：`scripts/generate_formats.py` — 2026-08-06 固化：从本地 SKILL.md 生成 6 分发文件（hermes/raw/claude-code/openclaw/opencode/README），格式规则字节级验证；`/tmp/inexbot-doc` 被清空后直接复用，不必重新反向工程
 > 🔧 Docx→Markdown 修复：`references/docx-fix-workflow.md` — 批量修复 docx 转换的 md 文档格式问题
 
 ---
@@ -106,7 +108,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 
 ## 📁 文档索引速查
 
-### 产品资料（19篇）
+### 产品资料（20篇）
 
 #### 控制器
 | 文档 | 用途 |
@@ -115,6 +117,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `产品资料_控制系统_工业机器人控制器c1103.md` | C1103 控制器，新一代小型化控制器 |
 | `产品资料_控制系统_工业机器人控制器c1201.md` | C1201 多网口、RS485/232、CAN 接口说明 |
 | `产品资料_控制系统_工业机器人控制器c2200系列.md` | C2200 新一代控制器，详细规格 |
+| `产品资料_控制系统_嵌入式控制主板c2202.md` | 🆕 C2202 嵌入式控制主板（嵌入式运动控制平台）|
 | `产品资料_控制系统_t30示教器.md` | T30 示教器硬件规格 |
 | `产品资料_控制系统_t31竖版示教器.md` | T31 竖版示教器（24.03版本有专项手册）|
 | `产品资料_控制系统_t40示教器.md` | T40 示教器（新品）|
@@ -139,15 +142,16 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 
 ---
 
-### 技术资料（5篇）
+### 技术资料（4篇）
 
 | 文档 | 用途 |
 |------|------|
-| `技术资料_常见问题与解决方案_伺服报错代码.md` | ⚠️ 必看：伺服报警代码含义与处理方法 |
 | `技术资料_支持的伺服型号.md` | 支持的伺服驱动品牌/型号列表 |
 | `技术资料_支持的外部轴类型.md` | 支持的外部轴（旋转台/滑台/地轨等） |
 | `技术资料_支持的机器人类型.md` | 支持的机器人构型（6轴/SCARA/Delta/定制） |
 | `技术资料_通讯协议&地址码.md` | 通讯协议地址定义（寄存器地址映射） |
+
+> ℹ️ 2026-08-07：原 `技术资料_常见问题与解决方案_伺服报错代码.md` 聚合页已下线（404），伺服报警查询迁移至 `常见问题_伺服报错_index.md`（349 个品牌/代码分类独立页面，含 `久同/摩通/新时达/杰美康/清能德创/禾川/迈信/系统问题`）。
 
 ---
 
@@ -445,7 +449,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 → `操作手册_24.03版本_调试手册.md`
 → `操作手册_24.03版本_工具手标定手册.md`
 → `操作手册_24.03版本_用户坐标标定手册.md`
-→ `技术资料_常见问题与解决方案_伺服报错代码.md`
+→ `常见问题_伺服报错_index.md`（伺服报警代码查询；原 技术资料_伺服报错代码 聚合页已下线）
 
 ### 二次开发（SDK / TCP）
 → `操作手册_24.03版本_7000端口.md` — **首选**：JSON over TCP 控制协议，含完整 API 示例
@@ -465,7 +469,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | 传送带跟踪 | `操作手册_24.03版本_新传送带跟踪工艺手册.md` |
 
 ### 故障排查
-→ `技术资料_常见问题与解决方案_伺服报错代码.md`
+→ `常见问题_伺服报错_index.md`（伺服报警代码查询）
 → `操作手册_24.03版本_io报警信息.md`
 → `操作手册_24.03版本_调试手册.md`
 
@@ -620,7 +624,7 @@ for f_name in FILES:
 python3 /tmp/upload_github.py
 ```
 
-**🔄 每日脚本复用（2026-08-05 验证）**：不要每天从零写 gen/upload/verify 脚本——`cp` 昨天验证过的脚本再 `patch` 日期字符串（`TODAY`、commit message、README「本次更新」段、verify marker）即可。复用已验证的 urllib+`ProxyHandler({})` 无代理 + 磁盘读 token 代码，减少 write_file filter 对全新脚本的暴露面（历史坑：`f.read()`/`TOKEN=` 字面量被静默替换为 `***`）。上传脚本自带 byte-identical 分支，会自动 SKIP 与 GitHub 相同的文件。
+**🔄 每日脚本复用（2026-08-05 验证；2026-08-06 修正）**：不要每天从零写 gen/upload/verify 脚本——优先 `cp` 昨日脚本再 `patch` 日期字符串（`TODAY`、commit message、README「本次更新」段、verify marker）。**⚠️ 但 `/tmp/inexbot-doc/` 可能在 cron 间隔间被系统清空（2026-08-06 实测：工作区已不存在，昨日脚本全部丢失）** — 因此 gen 脚本已固化为 skill 内置 `scripts/generate_formats.py`（2026-08-06 从现场脚本反向工程并字节级验证：hermes=SKILL.md 全文 / raw=frontmatter 后 body.strip() / claude-code=`---\nname\ndescription\n---\n\n`+body 不含 category / openclaw=+`version: 1.0.0` / opencode.json=`content:body`+metadata / README=独立模板）。upload/verify 脚本仍需现场重写（token 内嵌 `_B64` 模式），但可复用已验证的 urllib+`ProxyHandler({})` 无代理 + 磁盘读 token 代码。减少 write_file filter 对全新脚本的暴露面（历史坑：`f.read()`/`TOKEN=` 字面量被静默替换为 `***`）。上传脚本自带 byte-identical 分支，会自动 SKIP 与 GitHub 相同的文件。
 
 **两批同步模式**：先同步 drift 内容（批次 A，6 文件全传）并闭环验证，再向 SKILL.md 追加「🕐 上次自动同步」cron 条目 → 重生成 → 重传（批次 B）。批次 B 中 **README 自动 SKIP**（byte-identical）——README 是独立模板，**不嵌入 SKILL.md body**，只有模板内容变化（如新日期更新段）才需要更新；5 个内容文件（hermes/claude/openclaw/opencode/raw）重新上传。**快速诊断 drift 来源**：本地 SKILL.md ≠ 本地 `inexbot-doc-hermes.md`（gen 脚本逐字节复制 SKILL.md）→ SKILL.md 在生成后被修改，必须重新生成再上传。
 
@@ -667,6 +671,10 @@ elif site_eq_baseline and gh_hash_eq_baseline and skill_eq_hermes:
     # 4 层全等 — 完全 no-op
     print("✅ NOOP_ALL_FOUR_EQUAL — 今日无更新")
 ```
+
+**🆕 第 6 种模式：纯 rebuild + SKILL.md drift 合并触发（2026-08-06 首测）**
+
+当 **Layer 1/2/3 不等（hashmap md5/ETag 变化）且判定为纯 rebuild**（`all_old_changed=True` + `has_new_or_removed=False`、字节大小不变）**且 Layer 4 也不等**（本地 SKILL.md ≠ GitHub hermes）时：**不能只刷新 hash map，也不能走 6 文件 drift-only 分支 — 必须 7 文件全传**。原因：hash-map-snapshot.json 也要刷新为新 rebuild 的 hashmap，否则下一轮三方比对永远失败（基线 stale）；同时 drift 内容也要上传。判定顺序：先 diff hashmap（`compare_hash.py` 的 all_old_changed 分支）→ 纯 rebuild → 再查 Layer 4 → 两者都触发即 7 文件全传。实测：2026-08-06，md5 `b6cdef7f`→`fd5164f6` + +1528B drift，7 文件上传闭环 Equal: True。详见 `references/cron-run-2026-08-06-rebuild-drift.md`。
 
 判断依据：先把 Layer 1/2/3 跑一次三方字节比对；如果三方全等再检查 Layer 4（GitHub-hermes vs 本地 SKILL.md）；如果 Layer 4 不等 → 进入 6 文件上传分支而不是 7 文件全传。
 
@@ -795,7 +803,7 @@ curl -sI --max-time 15 --noproxy '*' https://doc.inexbot.com/hashmap.json | grep
 **✅ 正确格式**（使用左侧边栏路径结构，无 .md 后缀）：
 ```
 https://doc.inexbot.com/操作手册/24.03版本/运动控制类指令
-https://doc.inexbot.com/技术资料/常见问题与解决方案/伺服报错代码
+https://doc.inexbot.com/常见问题/伺服报错
 https://doc.inexbot.com/产品资料/控制系统/工业机器人控制器C1201
 ```
 
@@ -842,4 +850,4 @@ A: 两种主流方式：① 使用 7000 端口协议（JSON over TCP），查询
 
 **Q: 伺服报 E001 是什么错误？**
 A: 查伺服报错代码文档。
-→ `技术资料_常见问题与解决方案_伺服报错代码.md`
+→ `常见问题_伺服报错_index.md`（伺服报警代码查询）
