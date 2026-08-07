@@ -37,6 +37,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 🚨 假失败报告纠正：`references/cron-run-2026-08-04-clarify.md` — 2026-08-04 新增：07-31 "PAT 撤销" 被证伪（token 有效、commit 在 main）；urllib+ProxyHandler({}) 直连全链路验证可用；后续 cron 不要因 07-31 报告轮换 PAT
 > 🔁 08-05 drift sync 实录：`references/cron-run-2026-08-05-drift-sync.md` — 2026-08-05 新增：+1544B drift（08-04 澄清修订晚于上传追加）；**cp+patch 复用昨日脚本**（只改日期字符串）；**两批同步模式**（批次 B 追加 cron 条目后 README 自动 SKIP — README 不嵌入 SKILL.md body）
 > 🔁 08-06 rebuild+drift sync 实录：`references/cron-run-2026-08-06-rebuild-drift.md` — 2026-08-06 新增：站点 pure VitePress rebuild（md5 `b6cdef7f`→`fd5164f6`，552 全量 rehash、0 增/0 删/大小不变 = 无内容更新 → 仅刷新 hash 基线）+ SKILL.md +1528B drift；**合并触发 → 7 文件全传**（README+5 格式+hash-map-snapshot.json）；`all_old_changed + has_new_or_removed=False` 判定纯 rebuild
+> 🆕 08-07 真实内容更新实录：`references/cron-run-2026-08-07-update.md` — 2026-08-07 新增：**真实内容更新**（非 rebuild，`len(changed)≤max(new,removed)*5`）+ Layer 4 +1793B drift；+1 C2202 嵌入式控制主板 / −1 伺服报错代码聚合页（迁移至 `常见问题_伺服报错_index.md`）；7 文件全传 + 闭环 Equal: True
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
