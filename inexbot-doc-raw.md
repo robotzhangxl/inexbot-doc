@@ -623,6 +623,8 @@ python3 /tmp/upload_github.py
 
 **两批同步模式**：先同步 drift 内容（批次 A，6 文件全传）并闭环验证，再向 SKILL.md 追加「🕐 上次自动同步」cron 条目 → 重生成 → 重传（批次 B）。批次 B 中 **README 自动 SKIP**（byte-identical）——README 是独立模板，**不嵌入 SKILL.md body**，只有模板内容变化（如新日期更新段）才需要更新；5 个内容文件（hermes/claude/openclaw/opencode/raw）重新上传。**快速诊断 drift 来源**：本地 SKILL.md ≠ 本地 `inexbot-doc-hermes.md`（gen 脚本逐字节复制 SKILL.md）→ SKILL.md 在生成后被修改，必须重新生成再上传。
 
+**⚠️ 批次 B 脚本复用坑（2026-08-07 实测）**：直接复用昨日 `upload_batch_b.py` 而不改 `COMMIT` 字符串 → 批次 B 的 5 个 commit 会带着前一天的 commit message 落 main（如 `[2026-08-06 ...]`）。内容/SHA 完全正确、闭环验证也过，但 git log 出现日期错乱。**每次复用 upload 脚本必须先 patch `COMMIT` 行**（连同 `TODAY`/README 日期一起），不要只改文件内容就上传。verify.py 只比对字节和 commit 存在性，**不会**发现 message 过期——需自查。
+
 ### ⚡ VitePress 重建陷阱
 
 VitePress 站点每次 rebuild 都会重新生成**所有文档的 content hash**，即使内容完全未变。这意味着：
@@ -670,6 +672,15 @@ elif site_eq_baseline and gh_hash_eq_baseline and skill_eq_hermes:
 **🆕 第 6 种模式：纯 rebuild + SKILL.md drift 合并触发（2026-08-06 首测）**
 
 当 **Layer 1/2/3 不等（hashmap md5/ETag 变化）且判定为纯 rebuild**（`all_old_changed=True` + `has_new_or_removed=False`、字节大小不变）**且 Layer 4 也不等**（本地 SKILL.md ≠ GitHub hermes）时：**不能只刷新 hash map，也不能走 6 文件 drift-only 分支 — 必须 7 文件全传**。原因：hash-map-snapshot.json 也要刷新为新 rebuild 的 hashmap，否则下一轮三方比对永远失败（基线 stale）；同时 drift 内容也要上传。判定顺序：先 diff hashmap（`compare_hash.py` 的 all_old_changed 分支）→ 纯 rebuild → 再查 Layer 4 → 两者都触发即 7 文件全传。实测：2026-08-06，md5 `b6cdef7f`→`fd5164f6` + +1528B drift，7 文件上传闭环 Equal: True。详见 `references/cron-run-2026-08-06-rebuild-drift.md`。
+
+**🆕 第 7 种模式：真实内容更新（real content update，2026-08-07 首测）**
+
+当 **Layer 1/2/3 不等且 `len(changed) ≤ max(len(new_docs), len(removed)) * 5`**（少量文档变化 + 少量增删，非全量 rehash）时 → **真实内容更新**，非 rebuild。它与第 6 种模式走**同样的 7 文件全传**（hash-map-snapshot.json 必须刷新 + SKILL.md 索引必须改），但 SKILL.md 的更新内容不同。实测 2026-08-07：`changed=1, new=1, removed=1`（hashmap 36858B→36851B），+1 C2202 嵌入式控制主板 / −1 伺服报错代码聚合页 / ~1 索引.md，总数维持 552（551 共同 + 1 新增）。处置要点：
+1. **移除文档必须实证，不能只信 diff**：probe 旧 URL（404=真下线）vs 新 URL（200=迁移目标）；聚合页下线时通常有迁移 index（如 `常见问题_伺服报错_index.md`）。确认后 `search_files` 全局找出 SKILL.md 中所有旧文件名引用（含推荐场景、URL 示例、快速问答）逐一替换
+2. **同步更新 SKILL.md 节计数**：新增产品文档 → `### 产品资料（N篇）` +1；移除文档 → 对应节 −1（实测 19→20 / 5→4）；description 与 intro 产品线列表同步补新
+3. `doc_count` 由 `scripts/generate_formats.py` 从 hash-map-snapshot.json 自动读取，节计数变化无需手改生成器；但 README 的统计表会随生成器自动更新
+4. 判定顺序：先 diff hashmap（changed/new/removed 分支）→ 真实更新 → 再查 Layer 4 → 合并触发 7 文件全传
+详见 `references/cron-run-2026-08-07-update.md`。
 
 判断依据：先把 Layer 1/2/3 跑一次三方字节比对；如果三方全等再检查 Layer 4（GitHub-hermes vs 本地 SKILL.md）；如果 Layer 4 不等 → 进入 6 文件上传分支而不是 7 文件全传。
 
