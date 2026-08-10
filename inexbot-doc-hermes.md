@@ -41,6 +41,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 🔁 08-06 rebuild+drift sync 实录：`references/cron-run-2026-08-06-rebuild-drift.md` — 2026-08-06 新增：站点 pure VitePress rebuild（md5 `b6cdef7f`→`fd5164f6`，552 全量 rehash、0 增/0 删/大小不变 = 无内容更新 → 仅刷新 hash 基线）+ SKILL.md +1528B drift；**合并触发 → 7 文件全传**（README+5 格式+hash-map-snapshot.json）；`all_old_changed + has_new_or_removed=False` 判定纯 rebuild
 > 🆕 08-07 真实内容更新实录：`references/cron-run-2026-08-07-update.md` — 2026-08-07 新增：**真实内容更新**（非 rebuild，`len(changed)≤max(new,removed)*5`）+ Layer 4 +1793B drift；+1 C2202 嵌入式控制主板 / −1 伺服报错代码聚合页（迁移至 `常见问题_伺服报错_index.md`）；7 文件全传 + 闭环 Equal: True
 > 🔁 08-09 drift sync 实录：`references/cron-run-2026-08-09-drift-sync.md` — 2026-08-09 新增：mode 5 第 8 次重演（+2143B）；curl HEAD 成功但 body GET exit 7 → 需 unset 全部 *_PROXY env + `--noproxy` 双保险；README 嵌入 frontmatter description → description 变更时批次 B README 不会 SKIP
+> 🔁 08-10 drift sync 实录：`references/cron-run-2026-08-10-drift-sync.md` — 2026-08-10 新增：mode 5 第 9 次重演（+581B，历史最小 drift）；无站点变化（552/0/0/0）；README 本轮未 SKIP（description 变更）；12 commits 全落 main 闭环 Equal: True
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
