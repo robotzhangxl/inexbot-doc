@@ -1,6 +1,6 @@
 ---
 name: inexbot-doc
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。2026-08-07 站点真实更新：+1 新增 C2202 嵌入式控制主板，−1 移除 技术资料_伺服报错代码 聚合页（迁移至 常见问题_伺服报错_index）。每次回答问题后自动追加 Q&A 到下方缓存区。2026-07-27 cron：第 5 次捕获 SKILL.md-only drift (1224B)，三方 hashmap 仍全等 36858B，6 文件上传。2026-08-09 cron：第 8 次捕获 SKILL.md-only drift，站点三方全等（hashmap md5 `c1960907`，Last-Modified 07 Aug），本地 SKILL.md +2143B drift，6 文件上传闭环 Equal: True。
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。2026-08-07 站点真实更新：+1 新增 C2202 嵌入式控制主板，−1 移除 技术资料_伺服报错代码 聚合页（迁移至 常见问题_伺服报错_index）。每次回答问题后自动追加 Q&A 到下方缓存区。2026-07-27 cron：第 5 次捕获 SKILL.md-only drift (1224B)，三方 hashmap 仍全等 36858B，6 文件上传。2026-08-09 cron：第 8 次捕获 SKILL.md-only drift，站点三方全等（hashmap md5 `c1960907`，Last-Modified 07 Aug），本地 SKILL.md +2143B drift，6 文件上传闭环 Equal：True。
 version: 1.0.0
 ---
 
@@ -40,6 +40,7 @@ version: 1.0.0
 > 🔁 08-05 drift sync 实录：`references/cron-run-2026-08-05-drift-sync.md` — 2026-08-05 新增：+1544B drift（08-04 澄清修订晚于上传追加）；**cp+patch 复用昨日脚本**（只改日期字符串）；**两批同步模式**（批次 B 追加 cron 条目后 README 自动 SKIP — README 不嵌入 SKILL.md body）
 > 🔁 08-06 rebuild+drift sync 实录：`references/cron-run-2026-08-06-rebuild-drift.md` — 2026-08-06 新增：站点 pure VitePress rebuild（md5 `b6cdef7f`→`fd5164f6`，552 全量 rehash、0 增/0 删/大小不变 = 无内容更新 → 仅刷新 hash 基线）+ SKILL.md +1528B drift；**合并触发 → 7 文件全传**（README+5 格式+hash-map-snapshot.json）；`all_old_changed + has_new_or_removed=False` 判定纯 rebuild
 > 🆕 08-07 真实内容更新实录：`references/cron-run-2026-08-07-update.md` — 2026-08-07 新增：**真实内容更新**（非 rebuild，`len(changed)≤max(new,removed)*5`）+ Layer 4 +1793B drift；+1 C2202 嵌入式控制主板 / −1 伺服报错代码聚合页（迁移至 `常见问题_伺服报错_index.md`）；7 文件全传 + 闭环 Equal: True
+> 🔁 08-09 drift sync 实录：`references/cron-run-2026-08-09-drift-sync.md` — 2026-08-09 新增：mode 5 第 8 次重演（+2143B）；curl HEAD 成功但 body GET exit 7 → 需 unset 全部 *_PROXY env + `--noproxy` 双保险；README 嵌入 frontmatter description → description 变更时批次 B README 不会 SKIP
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
@@ -629,7 +630,7 @@ python3 /tmp/upload_github.py
 
 **🔄 每日脚本复用（2026-08-05 验证；2026-08-06 修正）**：不要每天从零写 gen/upload/verify 脚本——优先 `cp` 昨日脚本再 `patch` 日期字符串（`TODAY`、commit message、README「本次更新」段、verify marker）。**⚠️ 但 `/tmp/inexbot-doc/` 可能在 cron 间隔间被系统清空（2026-08-06 实测：工作区已不存在，昨日脚本全部丢失）** — 因此 gen 脚本已固化为 skill 内置 `scripts/generate_formats.py`（2026-08-06 从现场脚本反向工程并字节级验证：hermes=SKILL.md 全文 / raw=frontmatter 后 body.strip() / claude-code=`---\nname\ndescription\n---\n\n`+body 不含 category / openclaw=+`version: 1.0.0` / opencode.json=`content:body`+metadata / README=独立模板）。upload/verify 脚本仍需现场重写（token 内嵌 `_B64` 模式），但可复用已验证的 urllib+`ProxyHandler({})` 无代理 + 磁盘读 token 代码。减少 write_file filter 对全新脚本的暴露面（历史坑：`f.read()`/`TOKEN=` 字面量被静默替换为 `***`）。上传脚本自带 byte-identical 分支，会自动 SKIP 与 GitHub 相同的文件。
 
-**两批同步模式**：先同步 drift 内容（批次 A，6 文件全传）并闭环验证，再向 SKILL.md 追加「🕐 上次自动同步」cron 条目 → 重生成 → 重传（批次 B）。批次 B 中 **README 自动 SKIP**（byte-identical）——README 是独立模板，**不嵌入 SKILL.md body**，只有模板内容变化（如新日期更新段）才需要更新；5 个内容文件（hermes/claude/openclaw/opencode/raw）重新上传。**快速诊断 drift 来源**：本地 SKILL.md ≠ 本地 `inexbot-doc-hermes.md`（gen 脚本逐字节复制 SKILL.md）→ SKILL.md 在生成后被修改，必须重新生成再上传。
+**两批同步模式**：先同步 drift 内容（批次 A，6 文件全传）并闭环验证，再向 SKILL.md 追加「🕐 上次自动同步」cron 条目 → 重生成 → 重传（批次 B）。批次 B 中 **README 通常自动 SKIP**（byte-identical）——README 是独立模板，**不嵌入 SKILL.md body**；**⚠️ 但 README 嵌入 frontmatter `description`**（模板首段 `{desc}`），若 cron 条目也追加到了 description（如 2026-08-09 实测），README 字节变化 → 批次 B 必须重传 README。5 个内容文件（hermes/claude/openclaw/opencode/raw）始终重新上传。**快速诊断 drift 来源**：本地 SKILL.md ≠ 本地 `inexbot-doc-hermes.md`（gen 脚本逐字节复制 SKILL.md）→ SKILL.md 在生成后被修改，必须重新生成再上传。
 
 **⚠️ 批次 B 脚本复用坑（2026-08-07 实测）**：直接复用昨日 `upload_batch_b.py` 而不改 `COMMIT` 字符串 → 批次 B 的 5 个 commit 会带着前一天的 commit message 落 main（如 `[2026-08-06 ...]`）。内容/SHA 完全正确、闭环验证也过，但 git log 出现日期错乱。**每次复用 upload 脚本必须先 patch `COMMIT` 行**（连同 `TODAY`/README 日期一起），不要只改文件内容就上传。verify.py 只比对字节和 commit 存在性，**不会**发现 message 过期——需自查。
 
@@ -793,7 +794,7 @@ else:
 | `write_file` 写含 `f.read()` 单独调用的脚本 | ❌ **内容静默损坏** | 同上 |
 | `terminal("python3 -c '...'")` 内联生成脚本 | ✅ **完全绕过 write_file filter** | 备选方案，但 terminal 命令长时易超出 token 预算 |
 | `curl https://doc.inexbot.com/hash-map.json`（带连字符） | ❌ **返回 404 HTML**，若用 `json.load` 解析会 `JSONDecodeError` | ✅ 正确端点：`/hashmap.json`（无连字符）— 与 `references/hash-map-baseline.md` 一致 |
-| 本环境代理 `127.0.0.1:7890` 不可用 | ❌ `Connection refused`，curl exit 7；Python `urllib` 同症状 | ✅ `curl --noproxy '*'` 绕过；Python 脚本开头 `os.environ.pop` 全部 `*_PROXY` 变量后再 import urllib |
+| 本环境代理 `127.0.0.1:7890` 不可用 | ❌ `Connection refused`，curl exit 7；Python `urllib` 同症状 | ✅ `curl --noproxy '*'` 绕过；Python 脚本开头 `os.environ.pop` 全部 `*_PROXY` 变量后再 import urllib。**2026-08-09 实测**：HEAD 头检查 `--noproxy '*'` 成功但 body GET 仍 exit 7 → 最稳做法是 `unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy; export no_proxy='*'` + `--noproxy '*'` 双保险；HEAD 成功 ≠ 后续 GET 一定成功 |
 
 ### ⚡ Step 0 强化：Header-only 瞬时检查（2026-07-29 新增）
 
