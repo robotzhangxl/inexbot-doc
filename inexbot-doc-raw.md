@@ -43,12 +43,35 @@
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
 > 🔧 格式生成器（持久版）：`scripts/generate_formats.py` — 2026-08-06 固化：从本地 SKILL.md 生成 6 分发文件（hermes/raw/claude-code/openclaw/opencode/README），格式规则字节级验证；`/tmp/inexbot-doc` 被清空后直接复用，不必重新反向工程
 > 🔧 Docx→Markdown 修复：`references/docx-fix-workflow.md` — 批量修复 docx 转换的 md 文档格式问题
+> 🔌 PROFINET 伺服集成：`references/profinet-servo-integration.md` — 控制器厂家跨总线控制第三方 PROFINET 伺服（西门子 V90/S120）三方案对比、网关实时性分析、netX/HMS 选型、PROFIdrive 陷阱
 
 ---
 
 ## 📝 Q&A 缓存区（自动积累）
 
 > ⚠️ **规则**：每次使用本 skill 回答问题后，将 Q&A 对追加到此区域。按主题分组，保留来源文档链接。
+> ⚠️ **回答规则（2026-08 用户明确要求）**：回答纳博特技术问题**优先基于本 skill 的索引/Q&A/references 直接输出**，不要联网搜索答案。skill 已覆盖 552 篇文档索引 + 精选 Q&A，搜索是多余步骤。仅当问题超出 skill 覆盖范围（如新固件/新工艺）才允许联网核实。
+
+### 🔄 系统升级与文件管理
+
+**Q: 纳博特控制器/示教器软件如何升级？**
+
+A: 升级前先备份（U盘或系统自动备份），确认版本/硬件/机型匹配后导入新版程序并验证。系统在升级前会自动备份一次。升级触发自动备份的前提：开机、修改参数、修改程序、升级。
+
+→ 来源：`操作手册_24.03版本_系统备份与还原.md` + `常见问题_系统升级与文件管理.md` + `操作手册_24.03版本_示教器与控制器多语言翻译及升级指南.md`
+
+---
+
+**Q: 如何用 U 盘还原系统？**
+
+A: ① U 盘插入示教器 USB 口 → 设置→系统设置→自动备份 → 点「U 盘还原」→ 选择备份文件 → 上传后参数自动还原。
+- **还原铁律**：备份参数与当前软件版本对应、硬件设备一致、机器人型号一致，否则还原后控制器会崩溃。
+- **机制**：备份路径为 U 盘根目录；文件名前缀 `T30-1-SystemBackup`（nrc 系统）或 `T30-2-SystemBackup`（nrc2 系统），当前运行系统与备份系统文件名匹配才允许还原；还原逻辑 = 先删除原文件再上传备份文件。
+- **备份内容**：控制器 = config/craft/eni/job/lua/msg_languages/preset/variant/控制器程序；示教器 = config.db/Pinyin.db/ServoError.db/Userdata.db/示教器程序。
+
+→ 来源：`操作手册_24.03版本_系统备份与还原.md`
+
+---
 
 ### 🔥 焊接工艺
 
@@ -684,11 +707,11 @@ elif site_eq_baseline and gh_hash_eq_baseline and skill_eq_hermes:
 **🆕 第 7 种模式：真实内容更新（real content update，2026-08-07 首测）**
 
 当 **Layer 1/2/3 不等且 `len(changed) ≤ max(len(new_docs), len(removed)) * 5`**（少量文档变化 + 少量增删，非全量 rehash）时 → **真实内容更新**，非 rebuild。它与第 6 种模式走**同样的 7 文件全传**（hash-map-snapshot.json 必须刷新 + SKILL.md 索引必须改），但 SKILL.md 的更新内容不同。实测 2026-08-07：`changed=1, new=1, removed=1`（hashmap 36858B→36851B），+1 C2202 嵌入式控制主板 / −1 伺服报错代码聚合页 / ~1 索引.md，总数维持 552（551 共同 + 1 新增）。处置要点：
-1. **移除文档必须实证，不能只信 diff**：probe 旧 URL（404=真下线）vs 新 URL（200=迁移目标）；聚合页下线时通常有迁移 index（如 `常见问题_伺服报错_index.md`）。确认后 `search_files` 全局找出 SKILL.md 中所有旧文件名引用（含推荐场景、URL 示例、快速问答）逐一替换
-2. **同步更新 SKILL.md 节计数**：新增产品文档 → `### 产品资料（N篇）` +1；移除文档 → 对应节 −1（实测 19→20 / 5→4）；description 与 intro 产品线列表同步补新
+1. **移除文档必须实证，不能只信 diff**：probe 旧 URL（404=真下线）vs 新 URL（200=迁移目标）；聚合页下线时通常有迁移 index（如 `常见问题_伺服报错_index.md`）。确认后 `search_files` 全局找出 SKILL.md 中所有旧文件名引用（含推荐场景、URL 示例、快速问答）逐一替换。**⚠️ 中文路径 probe 必须 URL 编码（2026-08-11 实测）**：urllib 直接传含中文的 URL 报 `'ascii' codec can't encode characters`，必须先 `urllib.parse.quote()` 编码 path 再拼 base；curl 同理用 `--data-urlencode` 或先编码。写成脚本循环 probe 旧/新 URL 一次跑完（参照 `references/cron-run-2026-08-11-update.md`）
+2. **同步更新 SKILL.md 节计数**：新增产品文档 → `### 产品资料（N篇）` +1；移除文档 → 对应节 −1（实测 19→20 / 5→4）；description 与 intro 产品线列表同步补新。**⚠️ 按 hashmap key 的 namespace 计数，不是按 SKILL.md 现有挂靠节（2026-08-11 实测）**：`冲压工艺手册_2207冲压工艺手册.md` 的 hashmap key 是 `操作手册_22.07版本_...`（属 22.07），但 SKILL.md 索引误挂在 25.01 节 —— 移除它时 25.01 计数不变、实际 −1 在 22.07；同节 −2/+2 重组则节计数净零（22.07 维持 26 篇、总数 552）。改索引行前先 `json.load(hashmap)` 按 key 前缀归类确认归属节
 3. `doc_count` 由 `scripts/generate_formats.py` 从 hash-map-snapshot.json 自动读取，节计数变化无需手改生成器；但 README 的统计表会随生成器自动更新
-4. 判定顺序：先 diff hashmap（changed/new/removed 分支）→ 真实更新 → 再查 Layer 4 → 合并触发 7 文件全传
-详见 `references/cron-run-2026-08-07-update.md`。
+4. 判定顺序：先 diff hashmap（changed/new/removed 分支）→ 真实更新 → 再查 Layer 4 → 合并触发 7 文件全传。**⚠️ 组合模式（2026-08-11 首测）：全量 rehash（`all_old_changed=True`，550/550 全变）+ 真实增删（+2/−2）** —— 既不是纯 rebuild（不能只刷 hash 基线），也不是 drift-only（不能只传 6 文件），**必须 7 文件全传**（README+5 格式+hash-map-snapshot.json，snapshot 刷新为今日 hashmap 36834B）。判定口诀：`all_old_changed` + `has_new_or_removed` → 7 文件全传；`all_old_changed` 且无增删 → 只刷基线；`changed` 少量 → mode 7 真实更新
+详见 `references/cron-run-2026-08-07-update.md`、`references/cron-run-2026-08-11-update.md`。
 
 判断依据：先把 Layer 1/2/3 跑一次三方字节比对；如果三方全等再检查 Layer 4（GitHub-hermes vs 本地 SKILL.md）；如果 Layer 4 不等 → 进入 6 文件上传分支而不是 7 文件全传。
 
