@@ -660,6 +660,8 @@ python3 /tmp/upload_github.py
 
 **两批同步模式**：先同步 drift 内容（批次 A，6 文件全传）并闭环验证，再向 SKILL.md 追加「🕐 上次自动同步」cron 条目 → 重生成 → 重传（批次 B）。批次 B 中 **README 通常自动 SKIP**（byte-identical）——README 是独立模板，**不嵌入 SKILL.md body**；**⚠️ 但 README 嵌入 frontmatter `description`**（模板首段 `{desc}`），若 cron 条目也追加到了 description（如 2026-08-09 实测），README 字节变化 → 批次 B 必须重传 README。5 个内容文件（hermes/claude/openclaw/opencode/raw）始终重新上传。**快速诊断 drift 来源**：本地 SKILL.md ≠ 本地 `inexbot-doc-hermes.md`（gen 脚本逐字节复制 SKILL.md）→ SKILL.md 在生成后被修改，必须重新生成再上传。
 
+**⚠️ README 每日必变（2026-08-12 实测，mode 5 第 10 次）**：README 模板除首段 `{desc}` 外，还含 `## 🆕 {TODAY} 本次更新` 与 `📊 文档统计（截至 {TODAY}）` 两个日期段。跨 cron 日后即使 description 未变，README 也会因日期翻页与 GitHub 字节不同 → **批次 A 的 README 几乎总是重新上传（非 SKIP）**。实测：08-12 批次 A 生成时 description 尚未追加 cron 条目（仍止于 08-11），仅因 08-11→08-12 日期翻页，README 即 OK 上传。批次 B 若 cron 条目又追加进 description，README 再次变化再次上传。**不要因 README 每轮都上传而怀疑生成器 / 误判 drift 来源**；README 上传不代表 SKILL.md 有内容 drift，只看本地 SKILL.md vs 本地 inexbot-doc-hermes.md 是否逐字节一致。
+
 **🆕 三批模式（2026-08-10 实测）**：批次 B 上传后，若还需向 SKILL.md **body** 追加 reference 指针（每轮 cron 都写 `references/cron-run-YYYY-MM-DD-*.md` 实录 + 在「references 索引」段加一行指针），SKILL.md 再次变化 → 需要批次 C：重生成 → 重传 **5 个内容文件**。此时 **README 自动 SKIP（byte-identical）**——body-only 编辑不触发 README 变化（README 只嵌入 frontmatter `description`，description 未再变更则一致）。批次 C 必须 patch upload 脚本 `COMMIT` 行（独立 message，勿复用批次 A/B 的）。批次 C 后仍需闭环验证（GitHub hermes md5 == 本地 SKILL.md，Equal: True）。
 
 **⚠️ 批次 B 脚本复用坑（2026-08-07 实测）**：直接复用昨日 `upload_batch_b.py` 而不改 `COMMIT` 字符串 → 批次 B 的 5 个 commit 会带着前一天的 commit message 落 main（如 `[2026-08-06 ...]`）。内容/SHA 完全正确、闭环验证也过，但 git log 出现日期错乱。**每次复用 upload 脚本必须先 patch `COMMIT` 行**（连同 `TODAY`/README 日期一起），不要只改文件内容就上传。verify.py 只比对字节和 commit 存在性，**不会**发现 message 过期——需自查。
