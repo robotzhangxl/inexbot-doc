@@ -1,7 +1,7 @@
 ---
 name: inexbot-doc
 category: motion-control
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 站点行业方案新增 11 篇文档（轮式人形机器人运动控制系统、免编程示教系统喷涂、打磨、晶圆、激光寻位-跟踪、激光焊接、点胶、物流系统自动供包、码垛、金属焊接、医疗机器人）。2026-08-07 站点真实更新：+1 新增 C2202 嵌入式控制主板，−1 移除 技术资料_伺服报错代码 聚合页（迁移至 常见问题_伺服报错_index）。每次回答问题后自动追加 Q&A 到下方缓存区。2026-07-27 cron：第 5 次捕获 SKILL.md-only drift (1224B)，三方 hashmap 仍全等 36858B，6 文件上传。2026-08-09 cron：第 8 次捕获 SKILL.md-only drift，站点三方全等（hashmap md5 `c1960907`，Last-Modified 07 Aug），本地 SKILL.md +2143B drift，6 文件上传闭环 Equal：True。2026-08-10 cron：第 9 次捕获 SKILL.md-only drift，站点三方全等（hashmap md5 `c1960907`，Last-Modified 07 Aug，无文档更新），本地 SKILL.md +581B drift，6 文件上传闭环 Equal：True。2026-08-11 cron：真实内容更新，22.07 冲压工艺手册重组为 冲压工艺2.0手册 + 冲压工艺3.0手册，−2/+2，7 文件全传。2026-08-12 cron：SKILL.md-only drift（第10次捕获 +1886B），站点三方全等（hashmap md5 `e2bbec2b`，无文档更新），本地 SKILL.md drift，6 文件上传闭环 Equal：True。2026-08-13 cron：SKILL.md-only drift（第11次捕获 +825B），站点三方全等（hashmap md5 `e2bbec2b`，Last-Modified 11 Aug，无文档更新），本地 SKILL.md drift，6 文件上传闭环 Equal：True。
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 行业方案新增 11 篇；2026-08-07 真实更新：+1 C2202 嵌入式控制主板，−1 伺服报错代码聚合页（迁移至 常见问题_伺服报错_index）；2026-08-11 冲压工艺手册重组为 冲压工艺2.0/3.0手册；2026-08-12/08-13 均为 SKILL.md-only drift（第10/11次，站点 hashmap 无更新）并闭环 Equal：True。每次回答问题后自动追加 Q&A 到下方缓存区。
 ---
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
@@ -26,7 +26,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 开发者中心：https://ones.inexbot.com/wiki/external/org/8cdyvHV7
 >
 > 📋 站点监控参考：`references/doc-site-monitoring.md` — 文档分布统计、变更检测方法、安全扫描注意事项
-> 🔢 站点哈希基线：`references/doc-site-hashes.json` — 每篇文档的 VitePress content hash（每日 cron 自动更新）
+> 🔢 站点哈希基线：`references/doc-site-hashes.json` — 每篇文档的 VitePress content hash（⚠️ **2026-08-13 实测：遗留引用文件，非权威基线，可能滞后**（现 36851B/`c1960907`，止于 08-07，站点 08-11 已变 36834B）。**权威基线 = `/tmp/inexbot-doc/hash-map-snapshot.json` + GitHub `hash-map-snapshot.json`**；判定站点变更一律以 site↔GitHub snapshot 三方比对为准。establish_state.py 用它做 L1 baseline 时打印 `eq_site=False` 是**预期噪声**，不要据此误判文档更新——看 L2（GitHub snapshot == site）才是权威结论）
 > 🗺️ 哈希基线说明：`references/hash-map-baseline.md` — hash map 结构、分类方法、首次运行检测逻辑
 > 🔧 VitePress 索引提取：`references/vitepress-hashmap-extraction.md` — 通用 VitePress 文档站 hash map 和 sidebar 提取方法
 > 🧪 hash map 解析避坑：`references/hashmap-parse-pattern.md` — 2026-06-27 实测：\uXXXX 解码、search-config 元数据键过滤、完整工作脚本
@@ -666,6 +666,8 @@ python3 /tmp/upload_github.py
 **🆕 三批模式（2026-08-10 实测）**：批次 B 上传后，若还需向 SKILL.md **body** 追加 reference 指针（每轮 cron 都写 `references/cron-run-YYYY-MM-DD-*.md` 实录 + 在「references 索引」段加一行指针），SKILL.md 再次变化 → 需要批次 C：重生成 → 重传 **5 个内容文件**。此时 **README 自动 SKIP（byte-identical）**——body-only 编辑不触发 README 变化（README 只嵌入 frontmatter `description`，description 未再变更则一致）。批次 C 必须 patch upload 脚本 `COMMIT` 行（独立 message，勿复用批次 A/B 的）。批次 C 后仍需闭环验证（GitHub hermes md5 == 本地 SKILL.md，Equal: True）。
 
 **⚠️ 批次 B 脚本复用坑（2026-08-07 实测）**：直接复用昨日 `upload_batch_b.py` 而不改 `COMMIT` 字符串 → 批次 B 的 5 个 commit 会带着前一天的 commit message 落 main（如 `[2026-08-06 ...]`）。内容/SHA 完全正确、闭环验证也过，但 git log 出现日期错乱。**每次复用 upload 脚本必须先 patch `COMMIT` 行**（连同 `TODAY`/README 日期一起），不要只改文件内容就上传。verify.py 只比对字节和 commit 存在性，**不会**发现 message 过期——需自查。
+
+**⚠️ frontmatter description 超限会锁死所有 skill_manage 编辑（2026-08-13 实测）**：cron 每轮向 description 追加摘要，累积超 **1024 字符**后，任何 skill_manage patch/edit 都会报 `Description exceeds 1024 characters`（即使改的是 body 不是 description）——必须先用 patch 压缩 description 才能继续。压缩时**保留关键历史**（行业方案 11 篇、C2202 +1/伺服报错 −1、冲压 2.0/3.0 重组、drift 第 N 次闭环），删掉逐日流水。**YAML 陷阱**：description 是未加引号的 YAML 标量，**不能用 ASCII `冒号+空格`**（如 `Equal: True` 会报 `mapping values are not allowed here`），必须用全角 `Equal：True`；逗号/括号/全角符号安全。压缩后每轮 cron 应自律：description 只追加一行极简摘要，或定期压缩，避免再次超限。
 
 ### ⚡ VitePress 重建陷阱
 
