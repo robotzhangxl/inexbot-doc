@@ -1,12 +1,13 @@
 ---
 name: inexbot-doc
 category: motion-control
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 行业方案新增 11 篇；2026-08-07 真实更新：+1 C2202 嵌入式控制主板，−1 伺服报错代码聚合页（迁移至 常见问题_伺服报错_index）；2026-08-11 冲压工艺手册重组为 冲压工艺2.0/3.0手册；2026-08-12/08-13 均为 SKILL.md-only drift（第10/11次，站点 hashmap 无更新）并闭环 Equal：True；2026-08-16 第12次 drift +191B 闭环 Equal：True；2026-08-17 第13次 drift +387B 闭环 Equal：True。每次回答问题后自动追加 Q&A 到下方缓存区。
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 行业方案新增 11 篇；2026-08-07 真实更新：+1 C2202 嵌入式控制主板，−1 伺服报错代码聚合页（迁移至 常见问题_伺服报错_index）；2026-08-11 冲压工艺手册重组为 冲压工艺2.0/3.0手册；2026-08-12/08-13 均为 SKILL.md-only drift（第10/11次，站点 hashmap 无更新）并闭环 Equal：True；2026-08-16 第12次 drift +191B 闭环 Equal：True；2026-08-17 第13次 drift +387B 闭环 Equal：True；2026-09-01 4-layer 全等 Pure No-op（0 上传）；2026-09-03 第14次 drift +728B（根因为 09-01 noop 自身记录未上传）闭环 Equal：True。每次回答问题后自动追加 Q&A 到下方缓存区。
 ---
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
 
-> 🕐 上次自动同步: 2026-08-17 — SKILL.md-only drift sync（第 13 次捕获 drift，mode 5，+387B）：站点三方全等（site 36834B/md5 `e2bbec2b` == GitHub snapshot == hash-map-snapshot.json，Last-Modified 2026-08-11，**无文档更新**）。本地 SKILL.md 85156B（md5 `0c5a8a3c`）≠ GitHub hermes 84769B（md5 `41fe8ea5`）= **+387B drift**（08-16 固化 `scripts/layer_check.py` 后追加 reference 指针行，晚于批次 B 上传，残留至今日）。复用 skill 内置 `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5 == 本地 SKILL.md（**Equal: True**）。6 个 commit 已落 main。README 本轮**已更新**（日期段翻页）。 — SKILL.md-only drift sync（第 12 次捕获 drift，mode 5，+191B）：站点三方全等（site 36834B/md5 `e2bbec2b` == GitHub snapshot == hash-map-snapshot.json，Last-Modified 2026-08-11，**无文档更新**）。本地 SKILL.md 83464B（md5 `b2912f31`）≠ GitHub hermes 83273B（md5 `71e973c3`）= **+191B drift**（08-13 后累积：压缩 description + 新增「frontmatter description 超限」维护段 + 刷新 doc-site-hashes 引用行）。复用 skill 内置 `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5=`b2912f31` == 本地 SKILL.md（**Equal: True**）。6 个 commit（`0d38d103`…）已落 main。README 本轮**已更新**（日期段翻页）。
+> 🕐 上次自动同步: 2026-09-03 — SKILL.md-only drift sync（第 14 次捕获 drift，mode 5，+728B）：站点三方全等（site 36834B/md5 `e2bbec2b` == 本地 snapshot == GitHub snapshot，Last-Modified 2026-08-11，**站点 23 天无文档更新**，552 篇稳定）。本地 SKILL.md 87038B（md5 `8ee31613`）≠ GitHub hermes 86310B（md5 `4254c44c`）= **+728B drift**。**根因 = 09-01「Pure No-op」自身记录未上传**：09-01 判定 4-layer 全等后正确地 0 上传，但随后仍向 SKILL.md 写入了 3 处内容（09-01 同步条目 + `cron-run-2026-09-01-noop.md` reference 指针 + layer_check.py 实测注记），这些字节从未同步到 GitHub → 今日 Layer 4 必然不等。**这是 no-op 分支的结构性缺陷**（详见下方「no-op 悖论」段）。复用 skill 内置 `scripts/layer_check.py` + `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5 == 本地 SKILL.md（**Equal：True**）。
+> 🕐 上次自动同步: 2026-09-01 — **Pure No-op（4-layer 全等，cron 静默 15 天后首次回归）**：复用 2026-08-16 固化 `scripts/layer_check.py` 直接判定 NOOP_ALL_FOUR_EQUAL。L1 site 36834B/md5 `e2bbec2b` (Last-Modified 2026-08-11) == L2 本地 snapshot `e2bbec2b` == L3 GitHub snapshot `e2bbec2b`（sha `44f2c2c8`），L4 本地 SKILL.md 86310B/md5 `4254c44c` == GitHub hermes `4254c44c`（sha `a7bf6d49`，bytes-equal 实证）。doc.inexbot.com 站点 21 天无变化（552 篇稳定），静默期间用户未手动编辑 SKILL.md 制造 drift。**0 上传**，仅归档 reference `cron-run-2026-09-01-noop.md`。固化脚本（urllib + `ProxyHandler({})` 无代理 + 磁盘 `_token.txt`）全链路可用，cron 静默回归稳定。 — SKILL.md-only drift sync（第 12 次捕获 drift，mode 5，+191B）：站点三方全等（site 36834B/md5 `e2bbec2b` == GitHub snapshot == hash-map-snapshot.json，Last-Modified 2026-08-11，**无文档更新**）。本地 SKILL.md 83464B（md5 `b2912f31`）≠ GitHub hermes 83273B（md5 `71e973c3`）= **+191B drift**（08-13 后累积：压缩 description + 新增「frontmatter description 超限」维护段 + 刷新 doc-site-hashes 引用行）。复用 skill 内置 `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5=`b2912f31` == 本地 SKILL.md（**Equal: True**）。6 个 commit（`0d38d103`…）已落 main。README 本轮**已更新**（日期段翻页）。
 > 🕐 上次自动同步: 2026-08-13 — SKILL.md-only drift sync（第 11 次捕获 drift，mode 5）：站点 hashmap 三方全等（site 36834B/md5 `e2bbec2b` == GitHub snapshot == hash-map-snapshot.json，Last-Modified 2026-08-11，**无文档更新**）。本地 SKILL.md 82836B（md5 `d7cf2988`）≠ GitHub hermes 82011B = **+825B drift**（08-12 上传后 SKILL.md 追加「README 每日必变」段落）。复用 skill 内置 `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5=`d7cf2988` == 本地 SKILL.md（**Equal: True**）。6 个 commit 已落 main。README 本轮**已更新**（README 模板日期段随 08-12→08-13 翻页，非 SKIP）。
 > 🕐 上次自动同步: 2026-08-11 — **真实内容更新 + SKILL.md drift**：站点 hashmap 36851B/`c1960907` → 36834B/`e2bbec2b`（Last-Modified 2026-08-11 02:26），全量 rebuild rehash + **+2/−2 真实文档变更**。diff：**−2 移除 `操作手册_22.07版本_冲压工艺手册.md`（404）+ `操作手册_22.07版本_冲压工艺手册_2207冲压工艺手册.md`（404，冲压工艺手册子页面），+2 新增 `操作手册_22.07版本_冲压工艺2.0手册.md`（200）+ `操作手册_22.07版本_冲压工艺3.0手册.md`（200）**（冲压工艺手册重组为 2.0/3.0 两版）。文档总数维持 552（550 共同 + 2 新增），22.07 节 26 篇不变。判定：rebuild + 真实内容更新 → **7 文件全传**（README+5 格式+hash-map-snapshot.json）。Layer 4：本地 SKILL.md ≠ GitHub hermes（+drift）。复用 skill 内置 `scripts/generate_formats.py` + urllib+`ProxyHandler({})` 无代理 + `_B64` token：更新 SKILL.md 索引（22.07 冲压工艺手册 → 冲压工艺2.0/3.0手册 2 行，25.01 移除 冲压工艺手册_2207 引用）+ 刷新 hash 基线 → 重生成 6 文件 + hash-map-snapshot.json → 7 文件上传 → 闭环验证。
 > 🕐 上次自动同步: 2026-08-10 — SKILL.md-only drift sync（第 9 次捕获 drift，mode 5）：站点 hashmap 三方全等（site 36851B/md5 `c1960907` == baseline == GitHub snapshot，Last-Modified 2026-08-07 04:01，**无文档更新**）。本地 SKILL.md 73361B（md5 `dfd4834e`）≠ GitHub hermes 45399B（md5 `04293191`）= **+581B drift**（08-09 批次 B 上传后，SKILL.md 后续编辑累积）。复用 skill 内置 `scripts/generate_formats.py` + urllib+`ProxyHandler({})` 无代理 + `_B64` token 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5=`dfd4834e` == 本地 SKILL.md（**Equal: True**）。6 个 commit（`2ad881c`/`41a4248`/`e87f5f3`/`046b4b5`/`b30a200`/`add3508`）已落 main。
@@ -50,11 +51,13 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 🔁 08-13 drift sync 实录：`references/cron-run-2026-08-13-drift-sync.md` — 2026-08-13 新增：mode 5 第 11 次重演（+825B，历史最小 drift）；站点三方全等（hashmap md5 `e2bbec2b`，Last-Modified 11 Aug，无文档更新）；README 本轮**已更新**（README 模板日期段随 08-12→08-13 翻页，非 SKIP）；批次 A 6 文件上传 + 闭环 Equal: True
 > 🔁 08-16 drift sync 实录：`references/cron-run-2026-08-16-drift-sync.md` — 2026-08-16 新增：mode 5 第 12 次重演（+191B，历史最小 drift）；站点三方全等（hashmap md5 `e2bbec2b`，Last-Modified 11 Aug，无文档更新）；drift 源 = 压缩 description + 新增「frontmatter description 超限」维护段 + 刷新 doc-site-hashes 引用行；批次 A 6 文件上传 + 闭环 Equal: True
 > 🔁 08-17 drift sync 实录：`references/cron-run-2026-08-17-drift-sync.md` — 2026-08-17 新增：mode 5 第 13 次重演（+387B）；站点三方全等（hashmap md5 `e2bbec2b`，Last-Modified 11 Aug，无文档更新）；drift 源 = 08-16 固化 layer_check.py 后残留的 reference 指针行；批次 A 6 文件上传 + 闭环 Equal: True
+> ⚡ 09-01 静默回归 noop：`references/cron-run-2026-09-01-noop.md` — 2026-09-01 新增：cron 静默 15 天后首次回归 → `layer_check.py` 8-16 固化后首次实测 **4-layer 全等**（L1 site 36834B/`e2bbec2b` == L2 local snapshot == L3 GitHub snapshot == L4 SKILL.md 86310B/`4254c44c` == GitHub hermes）；0 上传；15 天内用户未手动编辑 SKILL.md 制造 drift，固化脚本闭环稳定可用
+> 🚨 09-03 no-op 自指 drift：`references/cron-run-2026-09-03-drift-sync.md` — 2026-09-03 新增：mode 5 第 14 次（+728B），**第 8 种模式首例**；根因 = 09-01 那轮判定 Pure No-op 后 0 上传却仍写 SKILL.md（同步条目 + reference 指针 + 脚本注记）→ 今日 Layer 4 必然不等；铁律「`0 上传` 与 `写 SKILL.md` 不可共存」；站点 23 天无更新
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
 > 🔧 格式生成器（持久版）：`scripts/generate_formats.py` — 2026-08-06 固化：从本地 SKILL.md 生成 6 分发文件（hermes/raw/claude-code/openclaw/opencode/README），格式规则字节级验证；`/tmp/inexbot-doc` 被清空后直接复用，不必重新反向工程
-> 🔧 Layer 四层检测（持久版）：`scripts/layer_check.py` — 2026-08-16 固化：四层比对（site hashmap ↔ 本地 snapshot ↔ GitHub snapshot ↔ GitHub hermes vs 本地 SKILL.md），urllib+`ProxyHandler({})` 无代理 + 磁盘 `_token.txt`，直接输出 DECISION（NOOP / mode 5 drift / 站点变化）；每日 cron 第一步跑它，不用现场重写检测脚本
+> 🔧 Layer 四层检测（持久版）：`scripts/layer_check.py` — 2026-08-16 固化：四层比对（site hashmap ↔ 本地 snapshot ↔ GitHub snapshot ↔ GitHub hermes vs 本地 SKILL.md），urllib+`ProxyHandler({})` 无代理 + 磁盘 `_token.txt`，直接输出 DECISION（NOOP / mode 5 drift / 站点变化）；每日 cron 第一步跑它，不用现场重写检测脚本。**2026-09-01 实测**：cron 静默 15 天后回归运行，4-layer 全等（site 36834B/`e2bbec2b` == 本地 snapshot == GitHub snapshot == 本地 SKILL.md 86310B/`4254c44c` == GitHub hermes）→ 输出 NOOP_ALL_FOUR_EQUAL，0 上传。**固化脚本在多周 cron 间隔后仍可正确判定，无需手写 fallback 脚本**
 > 🔧 Docx→Markdown 修复：`references/docx-fix-workflow.md` — 批量修复 docx 转换的 md 文档格式问题
 > 🔌 PROFINET 伺服集成：`references/profinet-servo-integration.md` — 控制器厂家跨总线控制第三方 PROFINET 伺服（西门子 V90/S120）三方案对比、网关实时性分析、netX/HMS 选型、PROFIdrive 陷阱
 
@@ -672,6 +675,29 @@ python3 /tmp/upload_github.py
 **⚠️ 批次 B 脚本复用坑（2026-08-07 实测）**：直接复用昨日 `upload_batch_b.py` 而不改 `COMMIT` 字符串 → 批次 B 的 5 个 commit 会带着前一天的 commit message 落 main（如 `[2026-08-06 ...]`）。内容/SHA 完全正确、闭环验证也过，但 git log 出现日期错乱。**每次复用 upload 脚本必须先 patch `COMMIT` 行**（连同 `TODAY`/README 日期一起），不要只改文件内容就上传。verify.py 只比对字节和 commit 存在性，**不会**发现 message 过期——需自查。
 
 **⚠️ frontmatter description 超限会锁死所有 skill_manage 编辑（2026-08-13 实测）**：cron 每轮向 description 追加摘要，累积超 **1024 字符**后，任何 skill_manage patch/edit 都会报 `Description exceeds 1024 characters`（即使改的是 body 不是 description）——必须先用 patch 压缩 description 才能继续。压缩时**保留关键历史**（行业方案 11 篇、C2202 +1/伺服报错 −1、冲压 2.0/3.0 重组、drift 第 N 次闭环），删掉逐日流水。**YAML 陷阱**：description 是未加引号的 YAML 标量，**不能用 ASCII `冒号+空格`**（如 `Equal: True` 会报 `mapping values are not allowed here`），必须用全角 `Equal：True`；逗号/括号/全角符号安全。压缩后每轮 cron 应自律：description 只追加一行极简摘要，或定期压缩，避免再次超限。
+
+**🚨 no-op 悖论：no-op 分支写自己的记录 = 给明天造 drift（2026-09-03 实测，第 14 次 drift 的根因）**
+
+判定 `NOOP_ALL_FOUR_EQUAL` 后「0 上传」是**正确**的（站点无变化，无需污染 commit 历史）。但如果同一轮 cron 随后仍按惯例向 SKILL.md 写入本轮记录（同步条目 + reference 指针 + 脚本实测注记），那么：
+
+```
+今天：4-layer 全等 → 判定 NOOP → 0 上传 → 但仍写 SKILL.md（+728B）
+                                              ↓
+明天：Layer 4 必然不等 → 判定 mode 5 drift → 6 文件上传
+      （drift 内容 100% 是「昨天那次 no-op 的自我记录」，与站点无关）
+```
+
+**实测**：2026-09-01 判定 Pure No-op、0 上传，却写入 3 处内容（09-01 条目 / `cron-run-2026-09-01-noop.md` 指针 / layer_check.py 的「2026-09-01 实测」注记）→ 2026-09-03 开局即 +728B drift。**no-op 从不是真正的终态，它只是把上传推迟到下一轮。**
+
+**处置（二选一，明确即可）**：
+- **方案 A（推荐，省 commit）**：判定 NOOP 后**什么都不写** — 不追加同步条目、不写 reference 实录、不改脚本注记。真 no-op = SKILL.md 零改动，明天仍是 4-layer 全等。仅在 cron 报告正文里说明「今日无更新」。
+- **方案 B（要留痕迹就走完全程）**：若坚持归档 no-op 记录（便于审计站点稳定天数），则写完 SKILL.md 后**必须重生成 + 上传 6 文件并闭环验证**，即按 mode 5 处理。**不要既写又不传。**
+
+**判定口诀**：`0 上传` 与 `写 SKILL.md` 不可共存。写了就传，不传就别写。
+
+**🆕 第 8 种模式：no-op 自指 drift（self-referential drift）**
+
+与第 5 种（用户日常追加 Q&A 造成的 drift）区分：第 5 种 drift 源在 skill 使用者，第 8 种 drift 源在 **cron 自己上一轮的记录行为**。诊断方法：`diff` GitHub hermes 与本地 SKILL.md，若新增行全部是「🕐 上次自动同步」条目 / `references/cron-run-*` 指针 / 脚本实测注记 → 即第 8 种，drift 与站点内容和用户编辑都无关。处置同 mode 5（6 文件上传），但**报告中应说明这是上一轮 no-op 的遗留而非新增内容**，避免读者误以为文档站有更新。
 
 ### ⚡ VitePress 重建陷阱
 
