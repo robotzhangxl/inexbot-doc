@@ -57,7 +57,7 @@ description: 纳博特（inexbot）机器人控制系统的技术顾问skill，�
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
 > 🔧 格式生成器（持久版）：`scripts/generate_formats.py` — 2026-08-06 固化：从本地 SKILL.md 生成 6 分发文件（hermes/raw/claude-code/openclaw/opencode/README），格式规则字节级验证；`/tmp/inexbot-doc` 被清空后直接复用，不必重新反向工程
-> 🔧 Layer 四层检测（持久版）：`scripts/layer_check.py` — 2026-08-16 固化：四层比对（site hashmap ↔ 本地 snapshot ↔ GitHub snapshot ↔ GitHub hermes vs 本地 SKILL.md），urllib+`ProxyHandler({})` 无代理 + 磁盘 `_token.txt`，直接输出 DECISION（NOOP / mode 5 drift / 站点变化）；每日 cron 第一步跑它，不用现场重写检测脚本。**2026-09-01 实测**：cron 静默 15 天后回归运行，4-layer 全等（site 36834B/`e2bbec2b` == 本地 snapshot == GitHub snapshot == 本地 SKILL.md 86310B/`4254c44c` == GitHub hermes）→ 输出 NOOP_ALL_FOUR_EQUAL，0 上传。**固化脚本在多周 cron 间隔后仍可正确判定，无需手写 fallback 脚本**
+> 🔧 Layer 四层检测（持久版）：`scripts/layer_check.py` — 2026-08-16 固化：四层比对（site hashmap ↔ 本地 snapshot ↔ GitHub snapshot ↔ GitHub hermes vs 本地 SKILL.md），urllib+`ProxyHandler({})` 无代理 + 磁盘 `_token.txt`，直接输出 DECISION（NOOP / mode 5 drift / 站点变化）；每日 cron 第一步跑它，不用现场重写检测脚本。**2026-09-03 实测**：mode 5 第 14 次（+728B + 批次 B +27B），站点三方全等，本地 SKILL.md != GitHub hermes → 输出 MODE5，重生成 6 文件 → 5 上传 + 1 SKIP（raw 字节相同）→ 11 个 commit 落 main（批次 A 6 + 批次 B 5）→ 闭环验证 GitHub hermes md5=`be0e63cd44edb326f7bcb0c62bef7757` 91055B == 本地 SKILL.md（**Equal: True**）。**固化脚本在 cron 静默 + 自指 drift 双重压力下仍可正确判定**
 > 🔧 Docx→Markdown 修复：`references/docx-fix-workflow.md` — 批量修复 docx 转换的 md 文档格式问题
 > 🔌 PROFINET 伺服集成：`references/profinet-servo-integration.md` — 控制器厂家跨总线控制第三方 PROFINET 伺服（西门子 V90/S120）三方案对比、网关实时性分析、netX/HMS 选型、PROFIdrive 陷阱
 
