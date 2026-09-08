@@ -1,11 +1,13 @@
 ---
 name: inexbot-doc
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（552篇文档，含349篇独立伺服报错页面，含25.01版本41篇新文档，含13篇行业方案）。2026-07-23 行业方案新增 11 篇；2026-08-07 真实更新：+1 C2202 嵌入式控制主板，−1 伺服报错代码聚合页（迁移至 常见问题_伺服报错_index）；2026-08-11 冲压工艺手册重组为 冲压工艺2.0/3.0手册；2026-08-12/08-13 均为 SKILL.md-only drift（第10/11次，站点 hashmap 无更新）并闭环 Equal：True；2026-08-16 第12次 drift +191B 闭环 Equal：True；2026-08-17 第13次 drift +387B 闭环 Equal：True；2026-09-01 4-layer 全等 Pure No-op（0 上传）；2026-09-03 第14次 drift +728B（第 8 种模式「no-op 自指 drift」首例，根因为 09-01 noop 自身记录未上传；铁律：`0 上传` 与 `写 SKILL.md` 不可共存）闭环 Equal：True。每次回答问题后自动追加 Q&A 到下方缓存区。
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（1096 篇：中文 557 + 英文 539，含 349 篇独立伺服报错页面，含 25.01 版本 41 篇新文档，含 13 篇行业方案）。2026-08-07 真实更新：+1 C2202 嵌入式控制主板，−1 伺服报错代码聚合页（迁移至 常见问题_伺服报错_index）；2026-08-11 冲压工艺手册重组为 冲压工艺2.0/3.0手册；2026-08-12/08-13/08-16/08-17 均为 SKILL.md-only drift（第10/11/12/13次）闭环 Equal：True；2026-09-01 4-layer 全等 Pure No-op（0 上传）；2026-09-03 第14次 drift +728B（铁律：`0 上传` 与 `写 SKILL.md` 不可共存）闭环 Equal：True；2026-09-08 **重大站点架构变更**：552 → 1096 篇（slug 重构 + 英文镜像上线，CHANGED hash=0，每个旧中文 key 1-1 对应 `zh_*`，新增 539 `en_*` 英文翻译镜像）。每次回答问题后自动追加 Q&A 到下方缓存区。
 version: 1.0.0
 ---
 
 
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
+
+> 🕐 上次自动同步: 2026-09-08 — **真实站点架构变更 + 双语镜像上线**（cron 静默 4 天 + SKILL.md 等 7 天后首次实质更新）：站点 hashmap 72395B/md5 `7287079b` (Last-Modified **2026-09-07 10:04:14**，ETag 变)，相对 L2/L3 旧 36834B/md5 `e2bbec2b`（08-11 起算）= **+35561B / +544 docs / +1 个数量级**。**架构变更分类**（CHANGED hash=0）：① slug 全量重构——所有旧中文 key 重命名为 `zh_*` 前缀（552 → 557，+5 全新的 zh 文档），② **首次上线完整英文翻译镜像**——新增 539 `en_*` 文档，1-1 镜像全部 552 个旧中文 + 新增 zh 中的大部分，③ 无任何 hash 变化（旧 hash 全部保留），所以**严格说不是"内容更新"而是"路径重命名 + 双语拓展"**——但因为 doc_count 从 552 翻到 1096，必须刷新 SKILL.md 索引/统计/README。判定：真实站点变更（非 rebuild、非孤立新增）→ **7 文件全传**（README + 5 格式 + hash-map-snapshot.json 72395B）。Layer 4 现状：本地 SKILL.md 91188B == GitHub hermes 91188B/md5 `1a85a799`（byte-equal，**0 drift**）→ 本次唯一变更源是 L1↔L2 不等。复用 skill 内置 `scripts/layer_check.py` + `scripts/generate_formats.py` 全链路：更新 description（552 → 1096+zh/en 拆分）+ 在头部追加 09-08 条目 + 重生成 6 文件 + 刷新 hash-map-snapshot.json（已下载至 72395B）→ 上传 7 文件 → 闭环验证 GitHub hermes md5 == 本地 SKILL.md（**Equal: True**）。**新增归档**：`references/cron-run-2026-09-08-bilingual-mirror.md`。
 
 > 🕐 上次自动同步: 2026-09-03 — SKILL.md-only drift sync（第 14 次捕获 drift，mode 5，+728B）：站点三方全等（site 36834B/md5 `e2bbec2b` == 本地 snapshot == GitHub snapshot，Last-Modified 2026-08-11，**站点 23 天无文档更新**，552 篇稳定）。本地 SKILL.md 87038B（md5 `8ee31613`）≠ GitHub hermes 86310B（md5 `4254c44c`）= **+728B drift**。**根因 = 09-01「Pure No-op」自身记录未上传**：09-01 判定 4-layer 全等后正确地 0 上传，但随后仍向 SKILL.md 写入了 3 处内容（09-01 同步条目 + `cron-run-2026-09-01-noop.md` reference 指针 + layer_check.py 实测注记），这些字节从未同步到 GitHub → 今日 Layer 4 必然不等。**这是 no-op 分支的结构性缺陷**（详见下方「no-op 悖论」段）。复用 skill 内置 `scripts/layer_check.py` + `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5 == 本地 SKILL.md（**Equal：True**）。
 > 🕐 上次自动同步: 2026-09-01 — **Pure No-op（4-layer 全等，cron 静默 15 天后首次回归）**：复用 2026-08-16 固化 `scripts/layer_check.py` 直接判定 NOOP_ALL_FOUR_EQUAL。L1 site 36834B/md5 `e2bbec2b` (Last-Modified 2026-08-11) == L2 本地 snapshot `e2bbec2b` == L3 GitHub snapshot `e2bbec2b`（sha `44f2c2c8`），L4 本地 SKILL.md 86310B/md5 `4254c44c` == GitHub hermes `4254c44c`（sha `a7bf6d49`，bytes-equal 实证）。doc.inexbot.com 站点 21 天无变化（552 篇稳定），静默期间用户未手动编辑 SKILL.md 制造 drift。**0 上传**，仅归档 reference `cron-run-2026-09-01-noop.md`。固化脚本（urllib + `ProxyHandler({})` 无代理 + 磁盘 `_token.txt`）全链路可用，cron 静默回归稳定。 — SKILL.md-only drift sync（第 12 次捕获 drift，mode 5，+191B）：站点三方全等（site 36834B/md5 `e2bbec2b` == GitHub snapshot == hash-map-snapshot.json，Last-Modified 2026-08-11，**无文档更新**）。本地 SKILL.md 83464B（md5 `b2912f31`）≠ GitHub hermes 83273B（md5 `71e973c3`）= **+191B drift**（08-13 后累积：压缩 description + 新增「frontmatter description 超限」维护段 + 刷新 doc-site-hashes 引用行）。复用 skill 内置 `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5=`b2912f31` == 本地 SKILL.md（**Equal: True**）。6 个 commit（`0d38d103`…）已落 main。README 本轮**已更新**（日期段翻页）。
@@ -54,6 +56,7 @@ version: 1.0.0
 > 🔁 08-17 drift sync 实录：`references/cron-run-2026-08-17-drift-sync.md` — 2026-08-17 新增：mode 5 第 13 次重演（+387B）；站点三方全等（hashmap md5 `e2bbec2b`，Last-Modified 11 Aug，无文档更新）；drift 源 = 08-16 固化 layer_check.py 后残留的 reference 指针行；批次 A 6 文件上传 + 闭环 Equal: True
 > ⚡ 09-01 静默回归 noop：`references/cron-run-2026-09-01-noop.md` — 2026-09-01 新增：cron 静默 15 天后首次回归 → `layer_check.py` 8-16 固化后首次实测 **4-layer 全等**（L1 site 36834B/`e2bbec2b` == L2 local snapshot == L3 GitHub snapshot == L4 SKILL.md 86310B/`4254c44c` == GitHub hermes）；0 上传；15 天内用户未手动编辑 SKILL.md 制造 drift，固化脚本闭环稳定可用
 > 🚨 09-03 no-op 自指 drift：`references/cron-run-2026-09-03-drift-sync.md` — 2026-09-03 新增：mode 5 第 14 次（+728B），**第 8 种模式首例**；根因 = 09-01 那轮判定 Pure No-op 后 0 上传却仍写 SKILL.md（同步条目 + reference 指针 + 脚本注记）→ 今日 Layer 4 必然不等；铁律「`0 上传` 与 `写 SKILL.md` 不可共存」；站点 23 天无更新
+> 🌐 09-08 双语镜像上线：`references/cron-run-2026-09-08-bilingual-mirror.md` — 2026-09-08 新增：**第 9 种变更模式首例**（站点 552 → 1096，slug 全量重构 `→ zh_*` + 539 篇 `en_*` 英文翻译镜像上线，CHANGED hash=0，Last-Modified 2026-09-07 10:04:14）；L1 72395B/`7287079b` ≠ L2/L3 36834B/`e2bbec2b`（旧 08-11 基线）但 L4 byte-equal（无 drift）；处置 7 文件全传（含新 72395B snapshot）；description 从「552 篇」改写为「1096 篇（中文 557 + 英文 539）」
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
@@ -67,7 +70,7 @@ version: 1.0.0
 ## 📝 Q&A 缓存区（自动积累）
 
 > ⚠️ **规则**：每次使用本 skill 回答问题后，将 Q&A 对追加到此区域。按主题分组，保留来源文档链接。
-> ⚠️ **回答规则（2026-08 用户明确要求）**：回答纳博特技术问题**优先基于本 skill 的索引/Q&A/references 直接输出**，不要联网搜索答案。skill 已覆盖 552 篇文档索引 + 精选 Q&A，搜索是多余步骤。仅当问题超出 skill 覆盖范围（如新固件/新工艺）才允许联网核实。
+> ⚠️ **回答规则（2026-08 用户明确要求）**：回答纳博特技术问题**优先基于本 skill 的索引/Q&A/references 直接输出**，不要联网搜索答案。skill 已覆盖 1096 篇文档索引（中文 557 + 英文 539，2026-09-07 站点双语镜像上线后）+ 精选 Q&A，搜索是多余步骤。仅当问题超出 skill 覆盖范围（如新固件/新工艺）才允许联网核实。
 
 ### 🔄 系统升级与文件管理
 
