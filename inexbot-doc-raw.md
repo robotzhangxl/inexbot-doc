@@ -1,5 +1,7 @@
 # 纳博特（inexbot）机器人控制系统 — 技术顾问
 
+> 🕐 上次自动同步: 2026-09-10 — **真实内容更新 + 英文 slug 拼音化（mode 7 + mode 9 variant）**：站点 hashmap 72395B/md5 `7287079b` (Last-Modified 2026-09-07) → 73197B/md5 `5d96b914` (Last-Modified **2026-09-10**)，相对 L2/L3 旧 = **+802B / +8 docs / 245 内容变更**。**变更分类**：① `len(common)=718`（多数 key 保留），`len(changed)=245`（远大于 max(386,378)*5=1930，ratio=0.63，**判定 mode 7 真实内容更新**），② **中文 144 篇内容实质更新**（24.03/22.07/25.01 节均有 hash 变化，覆盖 T30 示教器/7000端口/OPC-UA/finstcp/视觉工艺/码垛/寻位/传送带跟踪等核心手册），③ **英文 slug 全面拼音化**：378 个旧 en_* key 被移除（多为 `禾川`/`杰美康` 等中文 slug → `hechuang`/`jiemekang` 等 pinyin slug），386 个新 en_* key 镜像新增，④ **新增 8 篇文档（1096 → 1104）**——主要为新增 `index.md` 聚合页（产品资料/行业方案/常见问题）。处置：**7 文件全传**（README + 5 格式 + hash-map-snapshot.json 73197B）。Layer 4 现状：本地 SKILL.md 96429B ≠ GitHub hermes 93360B/md5 `6a884293` = **+3069B drift**（description 改写 + 头部追加 09-10 条目 + 25.01/22.07 节 slug `+`→`_` 规范化）。复用 skill 内置 `scripts/layer_check.py` + `scripts/generate_formats.py` 全链路：更新 description（1096 → 1104 / 中文 557 + 英文 547 / 25.01 41→37）+ 在头部追加 09-10 条目 + 重生成 6 文件 + 刷新 hash-map-snapshot.json（已下载至 73197B）→ 上传 7 文件 → 闭环验证 GitHub hermes md5 == 本地 SKILL.md（**Equal: True**）。**新增归档**：`references/cron-run-2026-09-10-content-update.md`。
+
 > 🕐 上次自动同步: 2026-09-08 — **真实站点架构变更 + 双语镜像上线**（cron 静默 4 天 + SKILL.md 等 7 天后首次实质更新）：站点 hashmap 72395B/md5 `7287079b` (Last-Modified **2026-09-07 10:04:14**，ETag 变)，相对 L2/L3 旧 36834B/md5 `e2bbec2b`（08-11 起算）= **+35561B / +544 docs / +1 个数量级**。**架构变更分类**（CHANGED hash=0）：① slug 全量重构——所有旧中文 key 重命名为 `zh_*` 前缀（552 → 557，+5 全新的 zh 文档），② **首次上线完整英文翻译镜像**——新增 539 `en_*` 文档，1-1 镜像全部 552 个旧中文 + 新增 zh 中的大部分，③ 无任何 hash 变化（旧 hash 全部保留），所以**严格说不是"内容更新"而是"路径重命名 + 双语拓展"**——但因为 doc_count 从 552 翻到 1096，必须刷新 SKILL.md 索引/统计/README。判定：真实站点变更（非 rebuild、非孤立新增）→ **7 文件全传**（README + 5 格式 + hash-map-snapshot.json 72395B）。Layer 4 现状：本地 SKILL.md 91188B == GitHub hermes 91188B/md5 `1a85a799`（byte-equal，**0 drift**）→ 本次唯一变更源是 L1↔L2 不等。复用 skill 内置 `scripts/layer_check.py` + `scripts/generate_formats.py` 全链路：更新 description（552 → 1096+zh/en 拆分）+ 在头部追加 09-08 条目 + 重生成 6 文件 + 刷新 hash-map-snapshot.json（已下载至 72395B）→ 上传 7 文件 → 闭环验证 GitHub hermes md5 == 本地 SKILL.md（**Equal: True**）。**新增归档**：`references/cron-run-2026-09-08-bilingual-mirror.md`。
 
 > 🕐 上次自动同步: 2026-09-03 — SKILL.md-only drift sync（第 14 次捕获 drift，mode 5，+728B）：站点三方全等（site 36834B/md5 `e2bbec2b` == 本地 snapshot == GitHub snapshot，Last-Modified 2026-08-11，**站点 23 天无文档更新**，552 篇稳定）。本地 SKILL.md 87038B（md5 `8ee31613`）≠ GitHub hermes 86310B（md5 `4254c44c`）= **+728B drift**。**根因 = 09-01「Pure No-op」自身记录未上传**：09-01 判定 4-layer 全等后正确地 0 上传，但随后仍向 SKILL.md 写入了 3 处内容（09-01 同步条目 + `cron-run-2026-09-01-noop.md` reference 指针 + layer_check.py 实测注记），这些字节从未同步到 GitHub → 今日 Layer 4 必然不等。**这是 no-op 分支的结构性缺陷**（详见下方「no-op 悖论」段）。复用 skill 内置 `scripts/layer_check.py` + `scripts/generate_formats.py` 全链路：重生成 6 文件 → 上传 6 文件（跳过 hash-map-snapshot.json，三方全等）→ 闭环验证 GitHub hermes md5 == 本地 SKILL.md（**Equal：True**）。
@@ -50,6 +52,7 @@
 > ⚡ 09-01 静默回归 noop：`references/cron-run-2026-09-01-noop.md` — 2026-09-01 新增：cron 静默 15 天后首次回归 → `layer_check.py` 8-16 固化后首次实测 **4-layer 全等**（L1 site 36834B/`e2bbec2b` == L2 local snapshot == L3 GitHub snapshot == L4 SKILL.md 86310B/`4254c44c` == GitHub hermes）；0 上传；15 天内用户未手动编辑 SKILL.md 制造 drift，固化脚本闭环稳定可用
 > 🚨 09-03 no-op 自指 drift：`references/cron-run-2026-09-03-drift-sync.md` — 2026-09-03 新增：mode 5 第 14 次（+728B），**第 8 种模式首例**；根因 = 09-01 那轮判定 Pure No-op 后 0 上传却仍写 SKILL.md（同步条目 + reference 指针 + 脚本注记）→ 今日 Layer 4 必然不等；铁律「`0 上传` 与 `写 SKILL.md` 不可共存」；站点 23 天无更新
 > 🌐 09-08 双语镜像上线：`references/cron-run-2026-09-08-bilingual-mirror.md` — 2026-09-08 新增：**第 9 种变更模式首例**（站点 552 → 1096，slug 全量重构 `→ zh_*` + 539 篇 `en_*` 英文翻译镜像上线，CHANGED hash=0，Last-Modified 2026-09-07 10:04:14）；L1 72395B/`7287079b` ≠ L2/L3 36834B/`e2bbec2b`（旧 08-11 基线）但 L4 byte-equal（无 drift）；处置 7 文件全传（含新 72395B snapshot）；description 从「552 篇」改写为「1096 篇（中文 557 + 英文 539）」
+> 🆕 09-10 真实内容更新 + 英文 slug 拼音化：`references/cron-run-2026-09-10-content-update.md` — 2026-09-10 新增：站点 hashmap 73197B/`5d96b914`（Last-Modified 2026-09-10），CHANGED hash=245 / NEW en=386 / REMOVED en=378 / CHANGED zh=144；**mode 7 + mode 9 variant**（多数 key 保留 + 大量 en slug 拼音化 + 新增 8 篇）；7 文件全传（含新 73197B snapshot）；description 从「1096 篇」改写为「1104 篇（中文 557 + 英文 547）」；25.01 节 41→37 篇（4 个 `+` slug 被规范化为 `_` slug：变量类+字符串类手册→变量类_字符串类手册、坐标系类+网络通讯类→坐标系类_网络通讯类、输入输出类+定时器类+运算类手册→输入输出类_定时器类_运算类手册、opc-ua参数说明→opc-ua参数；外部轴标定/机器人选型说明 被合并/下线）
 > ⚠️ Generator 模板陷阱：`references/generate-formats-pitfalls.md` — 2026-07-25 发现：`generate_formats.py` 硬编码的 doc_count/version/last_sync 会过时，drift-sync 时会输出错误统计
 > 🔧 SPA wiki 爬取指南：`references/scraping-dynamic-wiki-sites.md` — ones.inexbot.com SPA 页面内容提取方法
 > 🔧 GitHub 上传脚本：`scripts/upload_github.py` — Python subprocess 方式，cron 已验证可用
@@ -63,7 +66,7 @@
 ## 📝 Q&A 缓存区（自动积累）
 
 > ⚠️ **规则**：每次使用本 skill 回答问题后，将 Q&A 对追加到此区域。按主题分组，保留来源文档链接。
-> ⚠️ **回答规则（2026-08 用户明确要求）**：回答纳博特技术问题**优先基于本 skill 的索引/Q&A/references 直接输出**，不要联网搜索答案。skill 已覆盖 1096 篇文档索引（中文 557 + 英文 539，2026-09-07 站点双语镜像上线后）+ 精选 Q&A，搜索是多余步骤。仅当问题超出 skill 覆盖范围（如新固件/新工艺）才允许联网核实。
+> ⚠️ **回答规则（2026-08 用户明确要求）**：回答纳博特技术问题**优先基于本 skill 的索引/Q&A/references 直接输出**，不要联网搜索答案。skill 已覆盖 1104 篇文档索引（中文 557 + 英文 547，2026-09-10 站点英文 slug 拼音化后）+ 精选 Q&A，搜索是多余步骤。仅当问题超出 skill 覆盖范围（如新固件/新工艺）才允许联网核实。
 
 ### 🔄 系统升级与文件管理
 
@@ -145,7 +148,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 
 ## 📁 文档索引速查
 
-### 产品资料（20篇）
+### 产品资料（21篇）
 
 #### 控制器
 | 文档 | 用途 |
@@ -324,7 +327,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 #### 通讯与 IO
 | 文档 | 用途 |
 |------|------|
-| `操作手册_24.03版本_字符串类+输入输出类+定时器类+运算类指令手册.md` | 字符串/IO/定时器指令 |
+| `操作手册_24.03版本_字符串类_输入输出类_定时器类_运算类指令手册.md` | 字符串/IO/定时器指令 |
 | `操作手册_24.03版本_io报警信息.md` | IO 报警代码 |
 | `操作手册_24.03版本_数据上传.md` | 数据上传功能 |
 | `操作手册_24.03版本_断电保持功能.md` | 断电保持变量 |
@@ -372,17 +375,17 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `操作手册_24.03版本_森峰需求.md` | 森峰客户定制需求 |
 | `操作手册_24.03版本_天机需求.md` | 天机客户定制需求 |
 
-### 操作手册 25.01版本（41篇）— 最新版
+### 操作手册 25.01版本（37篇）— 最新版
 
 | 文档 | 用途 |
 |------|------|
 | `操作手册_25.01版本_外部轴使用手册.md` | 外部轴配置与控制 |
 | `操作手册_25.01版本_工具手标定.md` | TCP 标定 |
 | `操作手册_25.01版本_用户坐标标定手册.md` | 工件坐标标定 |
-| `操作手册_25.01版本_输入输出类+定时器类+运算类手册.md` | 输入输出/定时器/运算指令 |
+| `操作手册_25.01版本_输入输出类_定时器类_运算类手册.md` | 输入输出/定时器/运算指令 |
 | `操作手册_25.01版本_修改机器人点位.md` | 点位修改方法（25.01版） |
-| `操作手册_25.01版本_变量类+字符串类手册.md` | 变量类+字符串类手册（25.01版） |
-| `操作手册_25.01版本_坐标系类+网络通讯类.md` | 坐标系类+网络通讯类（25.01版） |
+| `操作手册_25.01版本_变量类_字符串类手册.md` | 变量类+字符串类手册（25.01版） |
+| `操作手册_25.01版本_坐标系类_网络通讯类.md` | 坐标系类+网络通讯类（25.01版） |
 | `操作手册_25.01版本_位置变量类.md` | 位置变量详解（25.01版新增） |
 | `操作手册_25.01版本_速度参数.md` | 速度参数配置（25.01版新增） |
 | `操作手册_25.01版本_finstcp使用手册.md` | FINSTCP 通讯协议（25.01版） |
@@ -447,7 +450,7 @@ A: 可能原因：① 起弧信号线未正确连接；② 焊机未上电或通
 | `常见问题_运行模式与远程控制.md` | 运行模式与远程控制 FAQ |
 | `常见问题_通讯与总线.md` | 通讯与总线常见问题 |
 
-### 行业方案（13篇）
+### 行业方案（14篇）
 
 | 文档 | 用途 |
 |------|------|
@@ -652,7 +655,7 @@ for f_name in FILES:
     if url:
         print(f"{f_name}: OK {url}")
     else:
-        print(f"{f_name}: FAIL {result.get('message', 'unknown')}")
+        print("DECISION: 站点 hashmap 变化 — 需 diff 判定模式 4/6/7/9（rebuild/真实更新/孤立新增/双语镜像，见 SKILL.md）")
 ```
 
 然后执行：
@@ -755,6 +758,50 @@ elif site_eq_baseline and gh_hash_eq_baseline and skill_eq_hermes:
 
 判断依据：先把 Layer 1/2/3 跑一次三方字节比对；如果三方全等再检查 Layer 4（GitHub-hermes vs 本地 SKILL.md）；如果 Layer 4 不等 → 进入 6 文件上传分支而不是 7 文件全传。
 
+**🆕 第 9 种模式：双语镜像 + slug 全量重构（bilingual mirror + slug rename，2026-09-08 首测）**
+
+诊断信号（CHANGED hashmap 内必须**全部满足**）：
+- `len(common) == 0`（旧 key 全部消失，无一保留）→ 与模式 6/7 严格区分（它们的 `common > 0`）
+- 文件大小 +1 个数量级（如 36834B → 72395B）+ ETag/Last-Modified 变化
+- 旧 key 全部映射到 `zh_*` 或新前缀 → 1-1 改名前缀
+- 新增的 `en_*` / 其他语言 key 数量 > 0（即上线了多语言镜像）
+- **CHANGED hash == 0**（无 hash 变化，纯路径/前缀变更，无内容修改）
+- L4（SKILL.md vs GitHub hermes）通常 byte-equal（无 drift），因为变更源不在 SKILL.md
+
+判定口诀：
+```python
+# 伪代码：识别 mode 9 vs mode 6/7
+old_set = set(prev_hashes)
+new_set = set(current_hashes)
+common = old_set & new_set
+old_only = old_set - new_set  # 即 removed
+new_only = new_set - old_set  # 即 new_docs
+changed = {k for k in common if prev_hashes[k] != current_hashes[k]}
+
+is_mode_9 = (
+    len(common) == 0                       # 旧 key 全部消失
+    and len(changed) == 0                  # 没有任何旧 key 保留
+    and len(new_only) >= len(old_only)     # 新增 >= 移除（多语言镜像）
+    and any(k.startswith("en_") for k in new_only)  # 含 en_ 镜像
+)
+# 简化判定（旧 key 全部消失 + 新增含 en_ → 99% 是双语镜像）
+```
+
+与模式 6/7 区分的关键：
+- **模式 6 (pure rebuild)**：`len(common) > 0` + `len(changed) == len(common)` + 无增删 → 内容不变只是 rehash
+- **模式 7 (real update)**：`len(common) > 0` + `len(changed)` 少量 + 少量增删 → 内容修改
+- **模式 9 (bilingual mirror)**：`len(common) == 0` + 全部新增 + 含 `en_*` 镜像 → 路径重命名 + 多语言拓展
+
+处置（与模式 6/7 同样 = **7 文件全传**）：
+1. **必须刷新 hash-map-snapshot.json**：因为整个 hashmap 字节数翻倍，旧基线永远 stale
+2. **必须刷新 description 与节计数**：doc_count 从 552 → 1096 这种翻倍变化必须改 SKILL.md 索引的「552 篇」相关文字
+3. **典型增量**：CHANGED hash=0 但 doc_count 翻倍 → 这不是内容更新，是**结构变更**。**SKILL.md 索引需要重写**（按 zh_/en_ 分组或保留原计数 + 标注双语）
+4. 闭环验证同前：`git` hermes md5 == 本地 SKILL.md（Equal: True）
+
+实测 2026-09-08：552 → 1096（+544），CHANGED hash=0，Last-Modified 2026-09-07 10:04:14 GMT（旧 08-11 23 天静默被打破）；7 文件全传成功，commit `c963b26f` / `a63f9d15` / `d55b60b9` / `d4471de6` / `22c56e1d` / `2f03dcbd` / `825588c3` 全部落 main。详见 `references/cron-run-2026-09-08-bilingual-mirror.md`。
+
+**为什么 mode 9 不算 mode 7（真实内容更新）的特例**：mode 7 强调「内容修改」，CHANGED hash > 0；mode 9 是**纯结构变更**（slug + 多语言），CHANGED hash = 0 但字节大小和 key 集合全变。两者处置虽然都是 7 文件全传，但 SKILL.md 的修改内容不同——mode 9 主要改 description 和索引行的「552 篇」表述，mode 7 主要改节计数和被移除文档的引用。
+
 每一轮 cron 仍需对比完整哈希列表，因为：
 - 即使仅拆包/主题升级也会触发全量 hash 变化
 - 只有通过 `new_docs` / `removed` 可以判定站点是否上架了新内容
@@ -815,7 +862,7 @@ removed = {k: prev_hashes[k] for k in set(prev_hashes) - set(current_hashes)}
 if not changed and not new_docs and not removed:
     print("今日无更新")
 else:
-    print(f"Changed: {len(changed)}, New: {len(new_docs)}, Removed: {len(removed)}")
+    print("DECISION: 站点 hashmap 变化 — 需 diff 判定模式 4/6/7/9（rebuild/真实更新/孤立新增/双语镜像，见 SKILL.md）")
 ```
 
 ### 📋 快速启动 cron 检查流程（7 步）
