@@ -1,6 +1,6 @@
 ---
 name: inexbot-doc
-description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（1104 篇：中文 557 + 英文 547，含 349 篇独立伺服报错页面，含 25.01 版本 37 篇新文档，含 14 篇行业方案）。2026-09-08 真实更新：双语镜像上线 + slug 重构 552→1096；2026-09-10 **真实内容更新 + 英文 slug 拼音化**：站点 hashmap 72395B→73197B（+802B，Last-Modified 2026-09-10，CHANGED hash=245 / NEW en=386 / REMOVED en=378 / CHANGED zh=144）；中文 144 篇内容实质更新、英文 slug 全面拼音化（禾川→hechuang、杰美康→jiemekang）、新增 8 篇英文文档（1096→1104）。每次回答问题后自动追加 Q&A 到下方缓存区。
+description: 纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（1104 篇：中文 557 + 英文 547，含 349 篇独立伺服报错页面，含 25.01 版本 37 篇新文档，含 14 篇行业方案）。**2026-09-14 mode 5 第 16 次 self-referential drift sync**：站点 6 天无更新（hashmap md5 `5d96b914` 73197B 三方全等）；本地 SKILL.md 105436B ≠ GitHub hermes 103746B（+1690B drift，源 = 09-13 cron 本轮追加的同步条目 + reference 指针 + 闭环 commit.sha 实证未上传）。批次 A 6 文件上传（README+5 格式） + 批次 B 5 文件追加 header 条目 + 写 `references/cron-run-2026-09-14-drift-sync.md`（双 sleep CDN eventual-consistency：批次 A `time.sleep(6)` / 批次 B `time.sleep(21)`）。每次回答问题后自动追加 Q&A 到下方缓存区。
 ---
 
 
@@ -702,7 +702,7 @@ python3 /tmp/upload_github.py
 
 **🆕 三批模式（2026-08-10 实测）**：批次 B 上传后，若还需向 SKILL.md **body** 追加 reference 指针（每轮 cron 都写 `references/cron-run-YYYY-MM-DD-*.md` 实录 + 在「references 索引」段加一行指针），SKILL.md 再次变化 → 需要批次 C：重生成 → 重传 **5 个内容文件**。此时 **README 自动 SKIP（byte-identical）**——body-only 编辑不触发 README 变化（README 只嵌入 frontmatter `description`，description 未再变更则一致）。批次 C 必须 patch upload 脚本 `COMMIT` 行（独立 message，勿复用批次 A/B 的）。批次 C 后仍需闭环验证（GitHub hermes md5 == 本地 SKILL.md，Equal: True）。
 
-**⚠️ GitHub CDN eventual-consistency（2026-09-13 首发实测）**：PUT 上传后**立刻**GET Contents API 经常返回**旧字节**——HTTP 200 + 新 `commit.sha` + 旧 `content` 字节 = 上传真成功但 CDN edge cache 未刷新（5–15s 延迟）。**闭环验证必须先判 commit.sha 而非立刻比 md5**：HTTP 200 + 新 commit.sha 就是真上传；Equal: False 但 PUT 200 不代表上传失败。强制刷新 CDN 的土办法 = 换 User-Agent（`cron-sync` → `cron-sync-2`），`Cache-Control: no-cache` header 在 Contents API 上**无效**。**判据口诀**：「上传成功」看 PUT 响应里的 commit.sha，「闭环验证」看 GET 响应里的 content 字节；两者之间允许 5–15s 窗口。详见 `references/github-cdn-eventual-consistency.md`（含与 2026-07-30「PAT 撤销」假失败的区分表）。
+**⚠️ GitHub CDN eventual-consistency（2026-09-13 首发实测，2026-09-14 批次大小细化）**：PUT 上传后**立刻**GET Contents API 经常返回**旧字节**——HTTP 200 + 新 `commit.sha` + 旧 `content` 字节 = 上传真成功但 CDN edge cache 未刷新（5–15s 延迟，**批次大小敏感**：批次 A 6 PUT 后 `time.sleep(6)` 即可读到新字节；批次 B 5 PUT 后实测需要 ~21s 才一致——PUT 越多、CDN edge 排队越久）。**闭环验证必须先判 commit.sha 而非立刻比 md5**：HTTP 200 + 新 commit.sha 就是真上传；Equal: False 但 PUT 200 不代表上传失败。强制刷新 CDN 的土办法 = 换 User-Agent（`cron-sync` → `cron-sync-2`），`Cache-Control: no-cache` header 在 Contents API 上**无效**。**两批同步推荐双 sleep 策略**：批次 A 后 `time.sleep(6)` → 闭环验证 → 批次 B → `time.sleep(21)` → 再闭环验证；不要复用 6s sleep 硬编码——批次 B 多于 5 个 PUT 时必然撞 CDN 延迟。**判据口诀**：「上传成功」看 PUT 响应里的 commit.sha，「闭环验证」看 GET 响应里的 content 字节；两者之间允许 5–21s 窗口（按批次大小递增）。详见 `references/github-cdn-eventual-consistency.md`（含与 2026-07-30「PAT 撤销」假失败的区分表）。
 
 **⚠️ 批次 B 脚本复用坑（2026-08-07 实测）**：直接复用昨日 `upload_batch_b.py` 而不改 `COMMIT` 字符串 → 批次 B 的 5 个 commit 会带着前一天的 commit message 落 main（如 `[2026-08-06 ...]`）。内容/SHA 完全正确、闭环验证也过，但 git log 出现日期错乱。**每次复用 upload 脚本必须先 patch `COMMIT` 行**（连同 `TODAY`/README 日期一起），不要只改文件内容就上传。verify.py 只比对字节和 commit 存在性，**不会**发现 message 过期——需自查。**批次 marker 推荐模式**：commit message 加显式区分（`batchA` / `batchB` / `batchC`，如 `"Auto-sync inexbot-doc-hermes.md (cron 2026-09-13 batchB body edits)"`），git log `git log --grep batchB` 一秒定位每轮上传的全部 commit。
 
@@ -730,6 +730,8 @@ python3 /tmp/upload_github.py
 **🆕 第 8 种模式：no-op 自指 drift（self-referential drift）**
 
 与第 5 种（用户日常追加 Q&A 造成的 drift）区分：第 5 种 drift 源在 skill 使用者，第 8 种 drift 源在 **cron 自己上一轮的记录行为**。诊断方法：`diff` GitHub hermes 与本地 SKILL.md，若新增行全部是「🕐 上次自动同步」条目 / `references/cron-run-*` 指针 / 脚本实测注记 → 即第 8 种，drift 与站点内容和用户编辑都无关。处置同 mode 5（6 文件上传），但**报告中应说明这是上一轮 no-op 的遗留而非新增内容**，避免读者误以为文档站有更新。
+
+**🆕 第 16 次重演（2026-09-14）揭示的深层结构**：即使走 mode 5 全套处置（批次 A 6 文件上传 + 闭环验证 Equal: True + 批次 B 5 文件追加 header 条目 + reference 指针 + 写归档 + 二次闭环验证），下一轮 cron **仍然**会以 mode 5 出现 self-referential drift——因为批次 B 本身就是 SKILL.md 增量，闭环后内容已增长 ~1900B，下一轮 cron 读取新 SKILL.md 时 L4 又不等。**因此 mode 5 self-referential drift 是结构性反复**，不是一次性修复。铁律仍生效：「`0 上传` 与 `写 SKILL.md` 不可共存」+「批次 A 后追加任何内容必须走批次 B 全套闭环」。16 次下来累计归档 14+ 个 `references/cron-run-2026-*-drift-sync.md`，SKILL.md 头部历史条目段已占总长度 ~8%（~8500B / 107000B）——长期看每 2-3 轮需要一次 description 压缩（详见「frontmatter description 超限」段）或选择性删除最早 5-6 条历史条目以控制体积。
 
 ### ⚡ VitePress 重建陷阱
 
@@ -935,6 +937,7 @@ else:
 | `write_file` 写含 `f.read()` 单独调用的脚本 | ❌ **内容静默损坏** | 同上 |
 | `terminal("python3 -c '...'")` 内联生成脚本 | ✅ **完全绕过 write_file filter** | 备选方案，但 terminal 命令长时易超出 token 预算 |
 | `curl https://doc.inexbot.com/hash-map.json`（带连字符） | ❌ **返回 404 HTML**，若用 `json.load` 解析会 `JSONDecodeError` | ✅ 正确端点：`/hashmap.json`（无连字符）— 与 `references/hash-map-baseline.md` 一致 |
+| `curl -sL https://doc.inexbot.com/hashmap.json`（带 `-L` follow-redirect） | ❌ **2026-09-14 实测陷阱**：边缘网关把 `/hashmap.json` 重定向到 `/assets/hashmap.json`（CDN 路径），`curl -sL` 自动跟随后写入 194006B 404 HTML（`Content-Length: 194006` + `<!DOCTYPE html>`），`json.load` 解析必崩；`scripts/layer_check.py` 会因为 HTML ≠ 73197B 字节误判 L1≠L2（虽然最终 layer_check 走 urllib 不带 follow，但**手动调试时**用 `curl -sL` 同样会撞此坑） | ✅ 手动调试统一用 `curl -s` 不带 `-L`（直接 200 + 73197B JSON）；或用 `curl -s --max-redirs 0` 显式拒绝重定向。**所有脚本里拉站点都用 `urllib.request.build_opener(ProxyHandler({}))` 默认不 follow**，自然免疫 |
 | 本环境代理 `127.0.0.1:7890` 不可用 | ❌ `Connection refused`，curl exit 7；Python `urllib` 同症状 | ✅ `curl --noproxy '*'` 绕过；Python 脚本开头 `os.environ.pop` 全部 `*_PROXY` 变量后再 import urllib。**2026-08-09 实测**：HEAD 头检查 `--noproxy '*'` 成功但 body GET 仍 exit 7 → 最稳做法是 `unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy; export no_proxy='*'` + `--noproxy '*'` 双保险；HEAD 成功 ≠ 后续 GET 一定成功 |
 
 ### ⚡ Step 0 强化：Header-only 瞬时检查（2026-07-29 新增）
