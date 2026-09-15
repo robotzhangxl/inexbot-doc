@@ -1,6 +1,6 @@
 # inexbot-doc — 纳博特机器人技术顾问 Skill
 
-纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（1104 篇：中文 557 + 英文 547，含 349 篇独立伺服报错页面，含 25.01 版本 37 篇新文档，含 14 篇行业方案）。2026-09-08 真实更新：双语镜像上线 + slug 重构 552→1096；2026-09-10 **真实内容更新 + 英文 slug 拼音化**：站点 hashmap 72395B→73197B（+802B，Last-Modified 2026-09-10，CHANGED hash=245 / NEW en=386 / REMOVED en=378 / CHANGED zh=144）；中文 144 篇内容实质更新、英文 slug 全面拼音化（禾川→hechuang、杰美康→jiemekang）、新增 8 篇英文文档（1096→1104）。每次回答问题后自动追加 Q&A 到下方缓存区。
+纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（1104 篇：中文 557 + 英文 547，含 349 篇独立伺服报错页面，含 25.01 版本 37 篇新文档，含 14 篇行业方案）。**2026-09-14 mode 5 第 16 次 self-referential drift sync**：站点 6 天无更新（hashmap md5 `5d96b914` 73197B 三方全等）；本地 SKILL.md 105436B ≠ GitHub hermes 103746B（+1690B drift，源 = 09-13 cron 本轮追加的同步条目 + reference 指针 + 闭环 commit.sha 实证未上传）。批次 A 6 文件上传（README+5 格式） + 批次 B 5 文件追加 header 条目 + 写 `references/cron-run-2026-09-14-drift-sync.md`（双 sleep CDN eventual-consistency：批次 A `time.sleep(6)` / 批次 B `time.sleep(21)`）。每次回答问题后自动追加 Q&A 到下方缓存区。
 
 ## 📦 多格式分发
 
@@ -14,7 +14,7 @@
 | `inexbot-doc-opencode.json` | OpenCode JSON | OpenCode |
 | `inexbot-doc-raw.md` | 纯 Markdown | 通用 |
 
-## 📊 文档统计（截至 2026-09-14）
+## 📊 文档统计（截至 2026-09-15）
 
 | 类别 | 数量 |
 |------|------|
@@ -28,7 +28,7 @@
 | **行业方案** | **14 篇** |
 | **合计** | **1104 篇** |
 
-## 🆕 2026-09-14 本次更新
+## 🆕 2026-09-15 本次更新
 
 - **类型**：自动同步（cron）
 - **上传文件**：README + 5 格式（+ hash-map-snapshot.json 按需）
