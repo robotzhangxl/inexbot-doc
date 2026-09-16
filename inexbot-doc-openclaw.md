@@ -737,6 +737,8 @@ python3 /tmp/upload_github.py
 
 **🆕 第 16 次重演（2026-09-14）揭示的深层结构**：即使走 mode 5 全套处置（批次 A 6 文件上传 + 闭环验证 Equal: True + 批次 B 5 文件追加 header 条目 + reference 指针 + 写归档 + 二次闭环验证），下一轮 cron **仍然**会以 mode 5 出现 self-referential drift——因为批次 B 本身就是 SKILL.md 增量，闭环后内容已增长 ~1900B，下一轮 cron 读取新 SKILL.md 时 L4 又不等。**因此 mode 5 self-referential drift 是结构性反复**，不是一次性修复。铁律仍生效：「`0 上传` 与 `写 SKILL.md` 不可共存」+「批次 A 后追加任何内容必须走批次 B 全套闭环」。16 次下来累计归档 14+ 个 `references/cron-run-2026-*-drift-sync.md`，SKILL.md 头部历史条目段已占总长度 ~8%（~8500B / 107000B）——长期看每 2-3 轮需要一次 description 压缩（详见「frontmatter description 超限」段）或选择性删除最早 5-6 条历史条目以控制体积。
 
+**🆕 第 17 次重演（2026-09-15）补充的"批次大小"经验**：本次跑出来 12 个 commit（批次 A 6 + 批次 B 6），而 09-14 是 11 个（批次 A 6 + 批次 B 5）。差异来自 README 的 SKIP 行为：批次 B 通常会自动 SKIP README（byte-identical）→ 5 个 PUT；但若 description 又变（cron 条目追加进 frontmatter），README 也变 → 6 个 PUT。**drift 大小 ≈ 上一轮新增字节 + 6 个 commit.sha 字面量（约 +400~600B）**。本轮 +2346B vs 09-14 +1690B 的差异 656B，主要来自本次的 6 个新 sha 标记（`3ea4f588`/`57ea1ba4`/`a1a60148`/`17106376`/`1e551e2c`/`d1779dbb`）+ 更详细的同步条目文字。**写作策略**：每个 🕐 条目可以适度压缩 commit.sha 列表（如只列 hermes 的 sha，省略 4 个其他格式的 sha），让下一轮 drift 增长更慢。这是 mode 5 自指 drift 的"治本"而非"治标"——治标是压缩 description，治本是让每轮条目本身更精简。
+
 ### ⚡ VitePress 重建陷阱
 
 VitePress 站点每次 rebuild 都会重新生成**所有文档的 content hash**，即使内容完全未变。这意味着：
