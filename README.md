@@ -1,6 +1,6 @@
 # inexbot-doc — 纳博特机器人技术顾问 Skill
 
-纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（1104 篇：中文 557 + 英文 547，含 349 篇独立伺服报错页面，含 25.01 版本 37 篇新文档，含 14 篇行业方案）。**2026-09-21 mode 5 第 19 次 drift sync**：站点 13 天无更新（hashmap md5 `5d96b914` 73197B 三方全等，Last-Modified 2026-09-08）；本地 SKILL.md 115579B ≠ GitHub hermes 112546B（+3033B drift，源 = 09-16 cron 本轮追加的同步条目 + `cron-run-2026-09-16-drift-sync.md` reference 指针 + 闭环 commit.sha 实证未上传）。批次 A 6 文件上传（README+5 格式，跳过 hash-map-snapshot.json） + 写 `references/cron-run-2026-09-21-drift-sync.md`。每次回答问题后自动追加 Q&A 到下方缓存区。
+纳博特（inexbot）机器人控制系统的技术顾问skill，涵盖产品选型、配置调试、二次开发、工艺应用全流程。文档索引基于 doc.inexbot.com（1104 篇：中文 557 + 英文 547，含 349 篇独立伺服报错页面，含 25.01 版本 37 篇新文档，含 14 篇行业方案）。**2026-09-21 mode 5 第 19 次 drift sync**：站点 13 天无更新（hashmap md5 `5d96b914` 73197B 三方全等，Last-Modified 2026-09-08）；本地 SKILL.md 116007B ≠ GitHub hermes 112546B（+3033B drift，源 = 09-16 cron 本轮追加的同步条目 + `cron-run-2026-09-16-drift-sync.md` reference 指针 + 闭环 commit.sha 实证未上传）。批次 A 6 文件上传（README+5 格式，跳过 hash-map-snapshot.json） + 升级 `scripts/upload_github.py`（urllib + retry/backoff 替代 subprocess+curl） + 写 `references/cron-run-2026-09-21-drift-sync.md`。每次回答问题后自动追加 Q&A 到下方缓存区。
 
 ## 📦 多格式分发
 
